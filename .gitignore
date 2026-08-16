@@ -1,0 +1,9 @@
+# Ignore temporary and archive files
+gemini/
+gemini.zip
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
