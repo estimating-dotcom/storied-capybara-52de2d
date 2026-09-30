@@ -7,3 +7,12 @@ __pycache__/
 Thumbs.db
 .vscode/
 .idea/
+
+# Large archives and media source folders
+OneDrive_1_9-30-2026.zip
+OneDrive_1_9-30-2026/
+
+# Private lead data logs
+leads.json
+leads.csv
+*.log

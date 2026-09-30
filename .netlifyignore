@@ -1,0 +1,17 @@
+# Netlify deploy ignore file
+OneDrive_1_9-30-2026.zip
+OneDrive_1_9-30-2026/
+gemini/
+gemini.zip
+leads.json
+leads.csv
+server.py
+start_server.ps1
+start_server.bat
+*.py
+*.log
+iframe_raw.html
+.git/
+.gitignore
+.vscode/
+.idea/
