@@ -8,8 +8,9 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Optional Web3Forms Direct Background Email Key (free from web3forms.com for estimating@lionstonefloors.com)
-    const WEB3FORMS_KEY = window.LIONSTONE_WEB3FORMS_KEY || "";
+    // Web3Forms Direct Background Email Key (for estimating@lionstonefloors.com)
+    const WEB3FORMS_KEY = "b1cdf58f-0e10-461e-81ea-d7477937009e";
+    const FLOORLAUNCH_WEBHOOK = window.LIONSTONE_FLOORLAUNCH_WEBHOOK || "";
 
     // 1. Inject Modal HTML to body if not already present
     if (!document.getElementById('lionstoneSuccessModal')) {
@@ -180,26 +181,45 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // 2. Automated Web3Forms Dispatch (Direct Background Email to estimating@lionstonefloors.com)
             if (WEB3FORMS_KEY) {
-                const w3Data = new FormData();
-                w3Data.append("access_key", WEB3FORMS_KEY);
-                w3Data.append("name", leadObj.name);
-                w3Data.append("phone", leadObj.phone);
-                w3Data.append("email", leadObj.email);
-                w3Data.append("city", leadObj.city);
-                w3Data.append("project_type", leadObj.project_type);
-                w3Data.append("sqft", leadObj.sqft);
-                w3Data.append("message", leadObj.message);
-                w3Data.append("from_name", "LionStone Website Lead Engine");
-                w3Data.append("subject", `New Estimate Request: ${leadObj.name} (${leadObj.project_type || 'Flooring'})`);
                 fetch("https://api.web3forms.com/submit", {
                     method: "POST",
-                    body: w3Data
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify({
+                        access_key: WEB3FORMS_KEY,
+                        from_name: "LionStone Website Leads",
+                        subject: `New Estimate Request: ${leadObj.name || 'New Lead'} (${leadObj.project_type || 'Flooring'})`,
+                        replyto: leadObj.email,
+                        "Full Name": leadObj.name,
+                        "Phone Number": leadObj.phone,
+                        "Email Address": leadObj.email,
+                        "City / Town (MA/CT)": leadObj.city,
+                        "Project Type": leadObj.project_type,
+                        "Approx. Sq Footage": leadObj.sqft,
+                        "Project Details / Notes": leadObj.message
+                    })
                 }).then(res => res.json())
                 .then(data => {
-                    console.log('[Web3Forms Engine] Email dispatched to estimating@lionstonefloors.com:', data);
+                    console.log('[Web3Forms Engine] Lead email delivered to estimating@lionstonefloors.com:', data);
                 }).catch(err => {
                     console.warn('[Web3Forms Engine] Notice:', err);
                 });
+            }
+
+            // 2b. FloorLaunch / CRM Text Notification Dispatch (if webhook configured)
+            if (FLOORLAUNCH_WEBHOOK) {
+                fetch(FLOORLAUNCH_WEBHOOK, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        full_name: leadObj.name,
+                        phone: leadObj.phone,
+                        email: leadObj.email,
+                        appointment_notes: `[City: ${leadObj.city} | ${leadObj.project_type} | ${leadObj.sqft}]\n${leadObj.message}`
+                    })
+                }).catch(err => console.log('[FloorLaunch Dispatch] Notice:', err));
             }
 
             // 3. Netlify Forms Submission (Native URL-encoded POST)
