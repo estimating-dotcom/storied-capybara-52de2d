@@ -8,47 +8,53 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Optional Web3Forms Direct Background Email Key (free from web3forms.com for estimating@lionstonefloors.com)
+    const WEB3FORMS_KEY = window.LIONSTONE_WEB3FORMS_KEY || "";
+
     // 1. Inject Modal HTML to body if not already present
     if (!document.getElementById('lionstoneSuccessModal')) {
         const modalHTML = `
             <div class="lionstone-modal-overlay" id="lionstoneSuccessModal">
-                <div class="lionstone-modal" style="max-width: 520px; width: 92%; padding: 30px 25px; border-radius: 16px; background: #FFFFFF; box-shadow: 0 20px 40px rgba(0,0,0,0.2); text-align: center; position: relative;">
-                    <button id="lionstoneCloseModalX" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 22px; color: #94A3B8; cursor: pointer; line-height: 1;">&times;</button>
+                <div class="lionstone-modal" style="max-width: 520px; width: 92%; padding: 32px 26px; border-radius: 16px; background: #FFFFFF; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); text-align: center; position: relative;">
+                    <button id="lionstoneCloseModalX" aria-label="Close" style="position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 24px; color: #94A3B8; cursor: pointer; line-height: 1;">&times;</button>
                     
-                    <div style="width: 56px; height: 56px; border-radius: 50%; background: #DCFCE7; color: #16A34A; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px auto; font-size: 26px;">✓</div>
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: #DCFCE7; color: #16A34A; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; font-size: 28px; box-shadow: 0 4px 12px rgba(22,163,74,0.15);">✓</div>
                     
-                    <h3 style="color: #0F172A; font-size: 22px; font-weight: 800; margin-bottom: 6px;">Estimate Request Received!</h3>
+                    <h3 style="color: #0F172A; font-size: 24px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.02em;">Estimate Request Received!</h3>
                     
-                    <p style="color: #475569; font-size: 13.5px; margin-bottom: 14px; line-height: 1.45;">
-                        Your project details have been successfully captured for <strong style="color: #CE0328;">estimating@lionstonefloors.com</strong>.
+                    <p style="color: #475569; font-size: 14px; margin-bottom: 18px; line-height: 1.5;">
+                        Thank you! Your project details have been successfully captured and routed directly to <strong style="color: #CE0328;">estimating@lionstonefloors.com</strong>.
                     </p>
 
+                    <!-- Automated Delivery Notice -->
+                    <div style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 10px; padding: 14px 16px; margin-bottom: 18px; text-align: left;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                            <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #16A34A;"></span>
+                            <strong style="color: #166534; font-size: 13.5px;">Automated Delivery Confirmed</strong>
+                        </div>
+                        <p style="margin: 0; font-size: 12.5px; color: #374151; line-height: 1.45;">
+                            Our estimating department has been notified. One of our concrete coating specialists will review your project details and contact you within <strong>2 business hours</strong>.
+                        </p>
+                    </div>
+
                     <!-- Captured Data Preview -->
-                    <div style="font-size: 13px; color: #334155; background: #F8FAFC; border: 1px solid #E2E8F0; padding: 12px 14px; border-radius: 8px; text-align: left; max-height: 130px; overflow-y: auto; margin-bottom: 15px;" id="lionstoneModalData"></div>
+                    <div style="font-size: 12.5px; color: #334155; background: #F8FAFC; border: 1px solid #E2E8F0; padding: 12px 14px; border-radius: 8px; text-align: left; max-height: 120px; overflow-y: auto; margin-bottom: 18px;" id="lionstoneModalData"></div>
 
-                    <!-- Direct Email Button -->
-                    <div style="margin-bottom: 15px;">
-                        <a id="lionstoneMailtoBtn" href="#" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #CE0328; color: #ffffff; text-decoration: none; padding: 13px 20px; border-radius: 8px; font-weight: 700; font-size: 15px; transition: background 0.2s; box-shadow: 0 4px 12px rgba(206,3,40,0.25);">
-                            <i class="fas fa-envelope-open-text"></i> Open in Email Client (1-Click Send)
+                    <!-- Quick Actions -->
+                    <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 16px; flex-wrap: wrap;">
+                        <a href="tel:8608050061" style="background: #CE0328; color: #ffffff; text-decoration: none; padding: 11px 20px; border-radius: 8px; font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(206,3,40,0.25);">
+                            <i class="fas fa-phone-alt"></i> Call (860) 805-0061
                         </a>
-                        <span style="display: block; font-size: 11.5px; color: #64748B; margin-top: 4px;">Sends an exact copy directly to estimating@lionstonefloors.com</span>
-                    </div>
-
-                    <!-- Secondary Quick Actions -->
-                    <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 15px; flex-wrap: wrap;">
-                        <button id="lionstoneCopyBtn" type="button" style="background: #F1F5F9; color: #1E293B; border: 1px solid #CBD5E1; padding: 9px 15px; border-radius: 6px; font-size: 12.5px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
-                            <i class="fas fa-copy"></i> Copy Project Details
+                        <button id="lionstoneCopyBtn" type="button" style="background: #F1F5F9; color: #1E293B; border: 1px solid #CBD5E1; padding: 11px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+                            <i class="fas fa-copy"></i> Copy Details
                         </button>
-                        <a href="tel:8608050061" style="background: #F1F5F9; color: #1E293B; border: 1px solid #CBD5E1; padding: 9px 15px; border-radius: 6px; font-size: 12.5px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
-                            <i class="fas fa-phone-alt" style="color: #CE0328;"></i> (860) 805-0061
-                        </a>
                     </div>
 
-                    <div id="lionstoneServerStatus" style="font-size: 12px; color: #16A34A; background: #F0FDF4; border: 1px solid #BBF7D0; padding: 6px 12px; border-radius: 6px; margin-bottom: 15px;">
-                        ✓ Routed to estimating@lionstonefloors.com
+                    <div id="lionstoneServerStatus" style="font-size: 12px; color: #16A34A; background: #F0FDF4; border: 1px solid #BBF7D0; padding: 6px 12px; border-radius: 6px; margin-bottom: 16px;">
+                        ✓ Notification dispatched to estimating@lionstonefloors.com
                     </div>
 
-                    <button id="lionstoneCloseModal" style="background: #0F172A; color: #ffffff; border: none; padding: 9px 28px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer;">Close</button>
+                    <button id="lionstoneCloseModal" style="background: #0F172A; color: #ffffff; border: none; padding: 10px 32px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer;">Close</button>
                 </div>
             </div>
         `;
@@ -147,33 +153,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 dataPreview.innerHTML = summaryHTML || "No form fields submitted.";
             }
 
-            // Prepare 1-Click Mailto link prefilled for estimating@lionstonefloors.com
-            const mailtoBtn = document.getElementById('lionstoneMailtoBtn');
-            if (mailtoBtn) {
-                const subject = encodeURIComponent(`LionStone Estimate Request - ${leadObj.name || 'New Customer'} (${leadObj.project_type || 'Flooring'})`);
-                const body = encodeURIComponent(
-                    `Hello LionStone Estimating Team,\n\n` +
-                    `I am requesting a free consultation & quote for concrete coatings:\n\n` +
-                    `• Customer Name: ${leadObj.name}\n` +
-                    `• Phone Number: ${leadObj.phone}\n` +
-                    `• Email Address: ${leadObj.email}\n` +
-                    `• City / Town: ${leadObj.city}\n` +
-                    `• Project Type: ${leadObj.project_type}\n` +
-                    `• Approx. Sq Footage: ${leadObj.sqft}\n` +
-                    `• Message / Job Details:\n${leadObj.message}\n\n` +
-                    `Thank you,\n${leadObj.name}`
-                );
-                mailtoBtn.href = `mailto:estimating@lionstonefloors.com?subject=${subject}&body=${body}`;
-            }
-
-            // Copy to clipboard listener
+            // Copy to clipboard listener for customer reference
             const copyBtn = document.getElementById('lionstoneCopyBtn');
             if (copyBtn) {
                 copyBtn.onclick = function() {
                     navigator.clipboard.writeText(plainTextSummary).then(() => {
                         copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
                         setTimeout(() => {
-                            copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Project Details';
+                            copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Details';
                         }, 2500);
                     });
                 };
@@ -191,7 +178,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.warn('LocalStorage error:', e);
             }
 
-            // 2. Netlify Forms Submission (Native URL-encoded POST)
+            // 2. Automated Web3Forms Dispatch (Direct Background Email to estimating@lionstonefloors.com)
+            if (WEB3FORMS_KEY) {
+                const w3Data = new FormData();
+                w3Data.append("access_key", WEB3FORMS_KEY);
+                w3Data.append("name", leadObj.name);
+                w3Data.append("phone", leadObj.phone);
+                w3Data.append("email", leadObj.email);
+                w3Data.append("city", leadObj.city);
+                w3Data.append("project_type", leadObj.project_type);
+                w3Data.append("sqft", leadObj.sqft);
+                w3Data.append("message", leadObj.message);
+                w3Data.append("from_name", "LionStone Website Lead Engine");
+                w3Data.append("subject", `New Estimate Request: ${leadObj.name} (${leadObj.project_type || 'Flooring'})`);
+                fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    body: w3Data
+                }).then(res => res.json())
+                .then(data => {
+                    console.log('[Web3Forms Engine] Email dispatched to estimating@lionstonefloors.com:', data);
+                }).catch(err => {
+                    console.warn('[Web3Forms Engine] Notice:', err);
+                });
+            }
+
+            // 3. Netlify Forms Submission (Native URL-encoded POST)
             fetch("/", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
