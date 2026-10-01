@@ -96,63 +96,27 @@
                     Fill out the form below and we will bring our sample case and laser measuring equipment directly to your site.
                 </p>
 
-                <form name="Estimate Form (Website)" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="./contact.html?success=true" class="native-estimate-form">
-                    <input type="hidden" name="form-name" value="Estimate Form (Website)" />
-                    <p style="display:none;"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
-
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 18px;">
-                        <div>
-                            <label for="form-name-input" style="display: block; font-size: 14px; font-weight: 700; color: var(--ls-primary); margin-bottom: 8px;">Full Name *</label>
-                            <input type="text" id="form-name-input" name="name" required placeholder="John Doe" style="width: 100%; padding: 12px 16px; border: 1px solid var(--ls-border); border-radius: 6px; font-size: 15px; box-sizing: border-box;" />
-                        </div>
-                        <div>
-                            <label for="form-phone-input" style="display: block; font-size: 14px; font-weight: 700; color: var(--ls-primary); margin-bottom: 8px;">Phone Number *</label>
-                            <input type="tel" id="form-phone-input" name="phone" required placeholder="(860) 805-0061" style="width: 100%; padding: 12px 16px; border: 1px solid var(--ls-border); border-radius: 6px; font-size: 15px; box-sizing: border-box;" />
-                        </div>
-                    </div>
-
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 18px;">
-                        <div>
-                            <label for="form-email-input" style="display: block; font-size: 14px; font-weight: 700; color: var(--ls-primary); margin-bottom: 8px;">Email Address *</label>
-                            <input type="email" id="form-email-input" name="email" required placeholder="john@example.com" style="width: 100%; padding: 12px 16px; border: 1px solid var(--ls-border); border-radius: 6px; font-size: 15px; box-sizing: border-box;" />
-                        </div>
-                        <div>
-                            <label for="form-city-input" style="display: block; font-size: 14px; font-weight: 700; color: var(--ls-primary); margin-bottom: 8px;">City / Town (MA / CT) *</label>
-                            <input type="text" id="form-city-input" name="city" required placeholder="e.g. Wilbraham, Northampton, Enfield" style="width: 100%; padding: 12px 16px; border: 1px solid var(--ls-border); border-radius: 6px; font-size: 15px; box-sizing: border-box;" />
-                        </div>
-                    </div>
-
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 18px;">
-                        <div>
-                            <label for="form-project-type" style="display: block; font-size: 14px; font-weight: 700; color: var(--ls-primary); margin-bottom: 8px;">Project Type</label>
-                            <select id="form-project-type" name="project_type" class="project-type-select" style="width: 100%; padding: 12px 16px; border: 1px solid var(--ls-border); border-radius: 6px; font-size: 15px; box-sizing: border-box;">
-                                <option value="Garage Flake Floor">Residential Garage Floor</option>
-                                <option value="Basement Floor">Basement Waterproof Coating</option>
-                                <option value="Commercial Facility">Commercial / Retail Showroom</option>
-                                <option value="Industrial Coating">Industrial Warehouse / Plant</option>
-                                <option value="Patio or Porch">Outdoor Patio / Pool Deck</option>
-                                <option value="Concrete Repair">Diamond Grinding / Concrete Mending</option>
-                                <option value="Other">Other (Please Specify)</option>
-                            </select>
-                            <div class="project-type-other-wrapper" style="display: none; margin-top: 10px;">
-                                <input type="text" name="project_type_custom" class="form-project-type-other" placeholder="Please specify your project type (e.g. Workshop, Pool Deck, Hangar)..." style="width: 100%; padding: 10px 14px; border: 1px solid var(--ls-accent); border-radius: 6px; font-size: 14px; box-sizing: border-box; background: #FFF9F9;" />
-                            </div>
-                        </div>
-                        <div>
-                            <label for="form-sqft-est" style="display: block; font-size: 14px; font-weight: 700; color: var(--ls-primary); margin-bottom: 8px;">Approx. Sq. Footage</label>
-                            <input type="text" id="form-sqft-est" name="sqft" placeholder="e.g. 450 sq ft (2-car garage)" style="width: 100%; padding: 12px 16px; border: 1px solid var(--ls-border); border-radius: 6px; font-size: 15px; box-sizing: border-box;" />
-                        </div>
-                    </div>
-
-                    <div style="margin-bottom: 25px;">
-                        <label for="form-message-input" style="display: block; font-size: 14px; font-weight: 700; color: var(--ls-primary); margin-bottom: 8px;">Project Details / Message</label>
-                        <textarea id="form-message-input" name="message" rows="4" placeholder="Tell us about the current concrete condition, cracks, existing coatings, or preferred timeframe..." style="width: 100%; padding: 12px 16px; border: 1px solid var(--ls-border); border-radius: 6px; font-size: 15px; resize: vertical; box-sizing: border-box;"></textarea>
-                    </div>
-
-                    <button type="submit" class="btn-ls-primary" style="width: 100%; justify-content: center; font-size: 16px !important; padding: 16px !important;">
-                        <i class="fas fa-paper-plane"></i> Submit Free Estimate Request
-                    </button>
-                </form>
+                <!-- Official LionStone Floors CRM Lead Intake (FloorLaunch) -->
+                <div class="floorlaunch-form-wrapper" style="width: 100%; min-height: 560px;">
+                    <iframe
+                        src="https://links.floorlaunch.com/widget/form/8NspFPVIP0Lxw5uBRMkY"
+                        style="width: 100%; height: 560px; border: none; border-radius: 8px; display: block;"
+                        id="inline-8NspFPVIP0Lxw5uBRMkY" 
+                        data-layout="{'id':'INLINE'}"
+                        data-trigger-type="alwaysShow"
+                        data-trigger-value=""
+                        data-activation-type="alwaysActivated"
+                        data-activation-value=""
+                        data-deactivation-type="neverDeactivate"
+                        data-deactivation-value=""
+                        data-form-name="Form | Estimate Form (Website)"
+                        data-height="560"
+                        data-layout-iframe-id="inline-8NspFPVIP0Lxw5uBRMkY"
+                        data-form-id="8NspFPVIP0Lxw5uBRMkY"
+                        title="LionStone Concrete Coatings Free Estimate Form">
+                    </iframe>
+                    <script src="https://links.floorlaunch.com/js/form_embed.js"></script>
+                </div>
             </div>
 
             <!-- Contact Info Column -->
