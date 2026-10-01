@@ -98,168 +98,68 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 4. Intercept form submissions & route directly to Netlify & estimating@lionstonefloors.com
+    // 4. Handle form submission enhancements (backup logging, custom option sync)
     const forms = document.querySelectorAll('form.native-estimate-form');
     forms.forEach((form) => {
         form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(form);
-            
             // If "Other" project type is selected, use the user's custom input value
             const projSelect = form.querySelector('.project-type-select');
             const customInput = form.querySelector('.form-project-type-other');
-            if (projSelect && projSelect.value === 'Other') {
-                const customVal = customInput && customInput.value.trim() ? customInput.value.trim() : 'Other (Custom)';
-                formData.set('project_type', customVal);
-                formData.delete('project_type_custom');
-            }
-
-            // Ensure form-name is set for Netlify Forms
-            if (!formData.get('form-name')) {
-                formData.set('form-name', form.getAttribute('name') || 'Estimate Form (Website)');
-            }
-
-            // Extract structured lead fields
-            const leadObj = {
-                name: formData.get('name') || formData.get('your-name') || '',
-                phone: formData.get('phone') || formData.get('your-phone') || '',
-                email: formData.get('email') || formData.get('your-email') || '',
-                city: formData.get('city') || '',
-                project_type: formData.get('project_type') || '',
-                sqft: formData.get('sqft') || '',
-                message: formData.get('message') || formData.get('your-message') || ''
-            };
-
-            // Build human-readable summary
-            let summaryHTML = "";
-            let plainTextSummary = "LIONSTONE FLOORS ESTIMATE REQUEST\n--------------------------------\n";
-            
-            for (let [key, value] of formData.entries()) {
-                if (key.startsWith('_') || key === 'g-recaptcha-response' || key === 'form-name' || key === 'bot-field') continue;
-                
-                let fieldLabel = key.replace(/your-/g, '').replace(/_/g, ' ').replace(/-/g, ' ');
-                fieldLabel = fieldLabel.charAt(0).toUpperCase() + fieldLabel.slice(1);
-                
-                if (value && value.toString().trim()) {
-                    summaryHTML += `<strong>${fieldLabel}:</strong> ${value}<br>`;
-                    plainTextSummary += `${fieldLabel}: ${value}\n`;
-                }
-            }
-            
-            plainTextSummary += `\nDestination: estimating@lionstonefloors.com\nDirect Phone: (860) 805-0061`;
-
-            const dataPreview = document.getElementById('lionstoneModalData');
-            if (dataPreview) {
-                dataPreview.innerHTML = summaryHTML || "No form fields submitted.";
-            }
-
-            // Copy to clipboard listener for customer reference
-            const copyBtn = document.getElementById('lionstoneCopyBtn');
-            if (copyBtn) {
-                copyBtn.onclick = function() {
-                    navigator.clipboard.writeText(plainTextSummary).then(() => {
-                        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                        setTimeout(() => {
-                            copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Details';
-                        }, 2500);
-                    });
-                };
+            if (projSelect && projSelect.value === 'Other' && customInput && customInput.value.trim()) {
+                const customVal = customInput.value.trim();
+                const opt = document.createElement('option');
+                opt.value = customVal;
+                opt.text = customVal;
+                opt.selected = true;
+                projSelect.appendChild(opt);
             }
 
             // 1. Store in localStorage backup
             try {
+                const formData = new FormData(form);
+                const leadObj = {
+                    name: formData.get('name') || '',
+                    phone: formData.get('phone') || '',
+                    email: formData.get('email') || '',
+                    city: formData.get('city') || '',
+                    project_type: formData.get('project_type') || '',
+                    sqft: formData.get('sqft') || '',
+                    message: formData.get('message') || ''
+                };
                 const stored = JSON.parse(localStorage.getItem('lionstone_leads') || '[]');
                 stored.push({
                     timestamp: new Date().toISOString(),
                     ...leadObj
                 });
                 localStorage.setItem('lionstone_leads', JSON.stringify(stored));
-            } catch (e) {
-                console.warn('LocalStorage error:', e);
+            } catch (err) {
+                console.warn('LocalStorage backup error:', err);
             }
 
-            // 2. Automated Web3Forms Dispatch (Direct Background Email to estimating@lionstonefloors.com)
-            if (WEB3FORMS_KEY) {
-                fetch("https://api.web3forms.com/submit", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json"
-                    },
-                    body: JSON.stringify({
-                        access_key: WEB3FORMS_KEY,
-                        from_name: "LionStone Website Leads",
-                        subject: `New Estimate Request: ${leadObj.name || 'New Lead'} (${leadObj.project_type || 'Flooring'})`,
-                        replyto: leadObj.email,
-                        "Full Name": leadObj.name,
-                        "Phone Number": leadObj.phone,
-                        "Email Address": leadObj.email,
-                        "City / Town (MA/CT)": leadObj.city,
-                        "Project Type": leadObj.project_type,
-                        "Approx. Sq Footage": leadObj.sqft,
-                        "Project Details / Notes": leadObj.message
-                    })
-                }).then(res => res.json())
-                .then(data => {
-                    console.log('[Web3Forms Engine] Lead email delivered to estimating@lionstonefloors.com:', data);
-                }).catch(err => {
-                    console.warn('[Web3Forms Engine] Notice:', err);
-                });
-            }
-
-            // 2b. FloorLaunch / CRM Text Notification Dispatch (if webhook configured)
+            // 2. FloorLaunch / CRM webhook dispatch (if configured)
             if (FLOORLAUNCH_WEBHOOK) {
-                fetch(FLOORLAUNCH_WEBHOOK, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        full_name: leadObj.name,
-                        phone: leadObj.phone,
-                        email: leadObj.email,
-                        appointment_notes: `[City: ${leadObj.city} | ${leadObj.project_type} | ${leadObj.sqft}]\n${leadObj.message}`
-                    })
-                }).catch(err => console.log('[FloorLaunch Dispatch] Notice:', err));
+                try {
+                    const formData = new FormData(form);
+                    if (navigator.sendBeacon) {
+                        navigator.sendBeacon(FLOORLAUNCH_WEBHOOK, JSON.stringify({
+                            full_name: formData.get('name') || '',
+                            phone: formData.get('phone') || '',
+                            email: formData.get('email') || '',
+                            appointment_notes: `[City: ${formData.get('city') || ''} | ${formData.get('project_type') || ''} | ${formData.get('sqft') || ''}]\n${formData.get('message') || ''}`
+                        }));
+                    }
+                } catch(err) {
+                    console.log('FloorLaunch dispatch error:', err);
+                }
             }
 
-            // 3. Netlify Forms Submission (Native URL-encoded POST)
-            fetch("/", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(formData).toString()
-            }).then(() => {
-                console.log('[Netlify Forms] Successfully posted to Netlify form pipeline.');
-            }).catch(err => {
-                console.log('[Netlify Forms] Local/offline environment notice:', err);
-            });
-
-            // 3. Local Server API logging (for local development sandbox)
-            const statusEl = document.getElementById('lionstoneServerStatus');
-            fetch('/api/estimate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(leadObj)
-            }).then(res => res.json())
-            .then(data => {
-                console.log('[LionStone Lead Engine] Lead saved to server database:', data);
-                if (statusEl) {
-                    statusEl.innerHTML = '✓ <strong>Saved to server:</strong> Logged in <code>leads.json</code> & <code>leads.csv</code>';
-                    statusEl.style.color = '#16A34A';
-                    statusEl.style.background = '#F0FDF4';
-                }
-            }).catch(() => {
-                if (statusEl) {
-                    statusEl.innerHTML = '✓ Routed to <strong>estimating@lionstonefloors.com</strong>';
-                    statusEl.style.color = '#16A34A';
-                    statusEl.style.background = '#F0FDF4';
-                }
-            });
-
-            // Show confirmation modal
-            if (modal) {
-                modal.classList.add('active');
-                form.reset();
+            // Show submitting indicator on the button
+            const submitBtn = form.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Transmitting Estimate Request...';
             }
+            // Form continues with native POST to https://api.web3forms.com/submit
         });
     });
 
