@@ -6,6 +6,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     initBeforeAfterSliders();
     initColorFlakeVisualizer();
+    initSystemSpecSelector();
     initStickyMobileBar();
     initGalleryFilters();
 });
@@ -151,6 +152,56 @@ function initColorFlakeVisualizer() {
 }
 
 /* ==========================================================================
+   3b. Engineering & System Specification Selector
+   ========================================================================== */
+function initSystemSpecSelector() {
+    const selectorContainer = document.getElementById('lionstone-spec-selector');
+    if (!selectorContainer) return;
+
+    const specTabs = selectorContainer.querySelectorAll('.spec-env-btn');
+    const elTitle = document.getElementById('spec-sys-title');
+    const elBadge = document.getElementById('spec-sys-badge');
+    const elDesc = document.getElementById('spec-sys-desc');
+    const elPrep = document.getElementById('spec-val-prep');
+    const elThickness = document.getElementById('spec-val-thickness');
+    const elCompressive = document.getElementById('spec-val-compressive');
+    const elCure = document.getElementById('spec-val-cure');
+    const elChemistry = document.getElementById('spec-val-chemistry');
+    const elApps = document.getElementById('spec-val-apps');
+    const elCta = document.getElementById('spec-cta-btn');
+
+    specTabs.forEach(btn => {
+        btn.addEventListener('click', function() {
+            specTabs.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+
+            const title = this.getAttribute('data-title');
+            const badge = this.getAttribute('data-badge');
+            const desc = this.getAttribute('data-desc');
+            const prep = this.getAttribute('data-prep');
+            const thickness = this.getAttribute('data-thickness');
+            const compressive = this.getAttribute('data-compressive');
+            const cure = this.getAttribute('data-cure');
+            const chemistry = this.getAttribute('data-chemistry');
+            const apps = this.getAttribute('data-apps');
+
+            if (elTitle && title) elTitle.textContent = title;
+            if (elBadge && badge) elBadge.textContent = badge;
+            if (elDesc && desc) elDesc.textContent = desc;
+            if (elPrep && prep) elPrep.textContent = prep;
+            if (elThickness && thickness) elThickness.textContent = thickness;
+            if (elCompressive && compressive) elCompressive.textContent = compressive;
+            if (elCure && cure) elCure.textContent = cure;
+            if (elChemistry && chemistry) elChemistry.textContent = chemistry;
+            if (elApps && apps) elApps.textContent = apps;
+            if (elCta && title) {
+                elCta.href = `./contact.html?system=${encodeURIComponent(title)}`;
+            }
+        });
+    });
+}
+
+/* ==========================================================================
    4. Sticky Mobile Action Bar
    ========================================================================== */
 function initStickyMobileBar() {
@@ -163,9 +214,9 @@ function initStickyMobileBar() {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                 <span>Call (860) 805-0061</span>
             </a>
-            <a href="./contact.html" class="sticky-btn sticky-btn-estimate" aria-label="Request Free Estimate">
+            <a href="./contact.html" class="sticky-btn sticky-btn-estimate" aria-label="Request Quote">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-                <span>Free Estimate</span>
+                <span>Request Quote</span>
             </a>
         </div>
     `;

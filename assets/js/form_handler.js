@@ -91,16 +91,40 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 3. Handle auto-population from URL parameters (e.g. from service pages or Swatch Visualizer)
+    // 3. Handle auto-population from URL parameters (e.g. from service pages, Spec Selector, or Swatch Visualizer)
     const urlParams = new URLSearchParams(window.location.search);
     const messageInput = document.getElementById('form-message-input') || document.querySelector('textarea[name="message"]');
-    if (messageInput) {
-        if (urlParams.has('system')) {
-            const system = urlParams.get('system') || 'Full Flake Polyaspartic';
-            messageInput.value = `[Inquiry] Interested in: ${system}\nPlease schedule an in-home inspection and bring physical samples.`;
-        } else if (urlParams.has('sample')) {
-            const sample = urlParams.get('sample');
-            messageInput.value = `[Sample Request] Requested Color/Texture Swatch: ${sample}\nPlease bring this physical sample to our in-home consultation.`;
+    const projectTypeSelect = document.getElementById('form-project-type') || document.querySelector('select[name="project_type"]');
+
+    if (urlParams.has('system')) {
+        const system = urlParams.get('system') || 'Industrial Resinous Coating';
+        if (messageInput) {
+            messageInput.value = `[System Specification Inquiry]: ${system}\nRequesting project evaluation and formal quote.`;
+        }
+        if (projectTypeSelect) {
+            const sysLower = system.toLowerCase();
+            if (sysLower.includes('warehouse') || sysLower.includes('logistics')) {
+                projectTypeSelect.value = 'Warehouse / Logistics';
+            } else if (sysLower.includes('cleanroom') || sysLower.includes('food') || sysLower.includes('urethane') || sysLower.includes('sanitary')) {
+                projectTypeSelect.value = 'Food & Beverage / Cleanroom';
+            } else if (sysLower.includes('stair') || sysLower.includes('walkway') || sysLower.includes('stain')) {
+                projectTypeSelect.value = 'Stairwell / Walkway Safety';
+            } else if (sysLower.includes('commercial') || sysLower.includes('retail') || sysLower.includes('metallic')) {
+                projectTypeSelect.value = 'Commercial Facility';
+            } else if (sysLower.includes('automotive') || sysLower.includes('fleet')) {
+                projectTypeSelect.value = 'Automotive / Fleet Bays';
+            } else if (sysLower.includes('garage') || sysLower.includes('flake')) {
+                projectTypeSelect.value = 'Garage Flake Floor';
+            } else if (sysLower.includes('basement') || sysLower.includes('moisture')) {
+                projectTypeSelect.value = 'Basement Floor';
+            } else {
+                projectTypeSelect.value = 'Manufacturing Facility';
+            }
+        }
+    } else if (urlParams.has('sample')) {
+        const sample = urlParams.get('sample');
+        if (messageInput) {
+            messageInput.value = `[Color / Texture Sample Inquiry]: ${sample}\nRequesting system specifications and formal project quote.`;
         }
     }
 });

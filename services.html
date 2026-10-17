@@ -80,10 +80,140 @@
                 From high-capacity manufacturing facilities and logistics warehouses to commercial showrooms and residential garages, LionStone Floors installs seamless resinous systems engineered for extreme compressive strength, chemical containment, and rapid return to service nationwide.
             </p>
             <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                <a href="#system-spec-finder" class="btn-ls-primary" style="font-size: 13px !important; padding: 10px 22px !important;"><i class="fas fa-sliders-h"></i> Interactive Spec Finder</a>
                 <a href="#industrial-flooring" class="btn-ls-secondary" style="font-size: 13px !important; padding: 10px 20px !important;">Industrial Systems</a>
                 <a href="#commercial-specialty" class="btn-ls-secondary" style="font-size: 13px !important; padding: 10px 20px !important;">Logistics & Cleanrooms</a>
                 <a href="#commercial-retail" class="btn-ls-secondary" style="font-size: 13px !important; padding: 10px 20px !important;">Commercial Facilities</a>
                 <a href="#residential-garage" class="btn-ls-secondary" style="font-size: 13px !important; padding: 10px 20px !important;">Automotive & Garages</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Engineering & System Specification Selector -->
+    <section id="system-spec-finder" style="padding: 70px 20px; background: var(--ls-bg-light); border-bottom: 1px solid var(--ls-border);">
+        <div class="container" style="max-width: 1150px; margin: 0 auto; text-align: center;">
+            <span style="color: var(--ls-accent); font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;">Technical Specification Guide</span>
+            <h2 style="font-size: 36px; margin: 10px 0 14px 0;">Interactive Flooring System Spec Finder</h2>
+            <p style="color: var(--ls-text-muted); max-width: 700px; margin: 0 auto;">
+                Select your facility environment or operating conditions below to inspect recommended surface preparation profiles, build thickness, compressive ratings, and resinous chemistry.
+            </p>
+
+            <div class="spec-selector-card" id="lionstone-spec-selector">
+                <div class="spec-env-tabs">
+                    <button type="button" class="spec-env-btn active"
+                        data-title="Heavy Manufacturing & Forklift System"
+                        data-badge="Industrial High-Build Epoxy / Polyurethane"
+                        data-desc="Engineered for heavy manufacturing plants, warehousing aisles, and assembly lines subject to continuous forklift traffic, steel-wheel point loads, and heavy mechanical impact."
+                        data-prep="CSP 3–4 Planetary Diamond Grind / Shot Blast"
+                        data-thickness="40 – 125 mils (Multi-Coat High-Build)"
+                        data-compressive="10,500+ PSI (ASTM C579)"
+                        data-cure="24–36 Hours Full Mechanical Load"
+                        data-chemistry="100% Solids Cycloaliphatic Epoxy + Aliphatic Urethane Topcoat"
+                        data-apps="Manufacturing Plants, Distribution Hubs, Machine Shops, Assembly Bays">
+                        <i class="fas fa-industry"></i> Heavy Manufacturing & Forklift
+                    </button>
+
+                    <button type="button" class="spec-env-btn"
+                        data-title="Chemical, Acid & Pharma Containment"
+                        data-badge="Novolac Epoxy & Seamless Cleanroom System"
+                        data-desc="Formulated for extreme chemical resistance against concentrated acids, caustics, aviation hydraulic fluids, solvents, and continuous cleanroom sanitization protocols."
+                        data-prep="CSP 3–5 Diamond Grind + Trench / Joint Mending"
+                        data-thickness="60 – 180 mils + Integral 4&quot;–6&quot; Radius Coving"
+                        data-compressive="11,200+ PSI (High Cross-Link Density)"
+                        data-cure="24–48 Hours Chemical Immersion Ready"
+                        data-chemistry="100% Solids Novolac Epoxy + Chemical-Resistant Urethane"
+                        data-apps="Pharmaceutical Labs, Battery Plants, Chemical Storage, Aviation Hangars">
+                        <i class="fas fa-flask"></i> Chemical & Cleanroom
+                    </button>
+
+                    <button type="button" class="spec-env-btn"
+                        data-title="Food, Beverage & Thermal Shock (USDA/FDA)"
+                        data-badge="Cementitious Urethane Mortar System"
+                        data-desc="Monolithic, antimicrobial thermal-shock flooring built to withstand 212°F+ live steam washdowns, freeze-thaw cycling, organic acids, and heavy washdown slopes."
+                        data-prep="CSP 4–6 Heavy Shot Blast & Keyed Terminations"
+                        data-thickness="3/16&quot; to 3/8&quot; (187 – 375 mils) Slurry / Mortar"
+                        data-compressive="9,200+ PSI (Thermal Coefficient Matched to Concrete)"
+                        data-cure="8–16 Hours Rapid Return to Service"
+                        data-chemistry="Three-Component Cementitious Urethane + Quartz Broadcast"
+                        data-apps="Food & Beverage Processing, Cold Storage, Breweries, Commercial Commissaries">
+                        <i class="fas fa-temperature-low"></i> Thermal Shock & USDA/FDA
+                    </button>
+
+                    <button type="button" class="spec-env-btn"
+                        data-title="Commercial Retail, Stairwells & Concourses"
+                        data-badge="Architectural Quartz & Designer Metallic"
+                        data-desc="High-traction safety quartz systems for multi-tier commercial stairwells and exterior access ramps, plus seamless architectural metallic and terrazzo-flake finishes for showrooms."
+                        data-prep="CSP 2–3 Dustless HEPA Diamond Grind"
+                        data-thickness="35 – 80 mils + OSHA Safety Nosing / Anti-Slip Grit"
+                        data-compressive="9,500+ PSI High-Abrasion Wear Layer"
+                        data-cure="12–24 Hours Foot Traffic Ready"
+                        data-chemistry="100% Solids Epoxy Base + UV-Stable Polyaspartic Clearcoat"
+                        data-apps="Commercial Stair Towers, Retail Storefronts, Schools, Healthcare Corridors">
+                        <i class="fas fa-building"></i> Commercial & Stair Towers
+                    </button>
+
+                    <button type="button" class="spec-env-btn"
+                        data-title="Automotive Bays & Residential Garages"
+                        data-badge="Full-Broadcast Polyaspartic Flake System"
+                        data-desc="Showroom-grade full-refusal vinyl flake broadcast locked beneath UV-stable polyaspartic topcoats. Impervious to hot-tire pickup, road salts, automotive fluids, and impact."
+                        data-prep="CSP 2–3 Diamond Grind + Elastomeric Crack Fill"
+                        data-thickness="35 – 50 mils (100% Refusal Flake Broadcast)"
+                        data-compressive="8,800+ PSI / Zero Hot-Tire Delamination"
+                        data-cure="Rapid Cure — Light Foot Traffic in 4–6 Hours"
+                        data-chemistry="Moisture-Mitigating Primer + 100% UV-Stable Polyaspartic"
+                        data-apps="Residential Garages, Auto Dealership Service Bays, Fleet Maintenance Shops">
+                        <i class="fas fa-car"></i> Automotive & Garages
+                    </button>
+                </div>
+
+                <div class="spec-body-grid">
+                    <div>
+                        <span id="spec-sys-badge" style="display: inline-block; background: rgba(206, 3, 40, 0.1); color: var(--ls-accent); font-size: 12px; font-weight: 800; padding: 5px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;">
+                            Industrial High-Build Epoxy / Polyurethane
+                        </span>
+                        <h3 id="spec-sys-title" style="font-size: 26px; margin: 0 0 14px 0; color: var(--ls-primary);">
+                            Heavy Manufacturing & Forklift System
+                        </h3>
+                        <p id="spec-sys-desc" style="font-size: 15px; line-height: 1.65; color: var(--ls-text-muted); margin-bottom: 24px;">
+                            Engineered for heavy manufacturing plants, warehousing aisles, and assembly lines subject to continuous forklift traffic, steel-wheel point loads, and heavy mechanical impact.
+                        </p>
+                        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                            <a id="spec-cta-btn" href="./contact.html?system=Heavy%20Manufacturing%20%26%20Forklift%20System" class="btn-ls-primary" style="font-size: 13px !important; padding: 12px 24px !important;">
+                                <i class="fas fa-file-signature"></i> Request Quote for This Spec
+                            </a>
+                            <a href="tel:8608050061" class="header-phone-badge" style="padding: 10px 18px;">
+                                <i class="fas fa-phone-alt"></i> Speak With Engineering
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="spec-metrics-grid">
+                        <div class="spec-metric-box">
+                            <span class="spec-metric-label"><i class="fas fa-drafting-compass" style="color: var(--ls-accent); margin-right: 4px;"></i> Surface Prep Profile</span>
+                            <div id="spec-val-prep" class="spec-metric-value">CSP 3–4 Planetary Diamond Grind / Shot Blast</div>
+                        </div>
+                        <div class="spec-metric-box">
+                            <span class="spec-metric-label"><i class="fas fa-layer-group" style="color: var(--ls-accent); margin-right: 4px;"></i> System Build Thickness</span>
+                            <div id="spec-val-thickness" class="spec-metric-value">40 – 125 mils (Multi-Coat High-Build)</div>
+                        </div>
+                        <div class="spec-metric-box">
+                            <span class="spec-metric-label"><i class="fas fa-dumbbell" style="color: var(--ls-accent); margin-right: 4px;"></i> Compressive Strength</span>
+                            <div id="spec-val-compressive" class="spec-metric-value">10,500+ PSI (ASTM C579)</div>
+                        </div>
+                        <div class="spec-metric-box">
+                            <span class="spec-metric-label"><i class="fas fa-clock" style="color: var(--ls-accent); margin-right: 4px;"></i> Return to Service</span>
+                            <div id="spec-val-cure" class="spec-metric-value">24–36 Hours Full Mechanical Load</div>
+                        </div>
+                        <div class="spec-metric-box" style="grid-column: 1 / -1;">
+                            <span class="spec-metric-label"><i class="fas fa-vial" style="color: var(--ls-accent); margin-right: 4px;"></i> Resinous Architecture</span>
+                            <div id="spec-val-chemistry" class="spec-metric-value">100% Solids Cycloaliphatic Epoxy + Aliphatic Urethane Topcoat</div>
+                        </div>
+                        <div class="spec-metric-box" style="grid-column: 1 / -1;">
+                            <span class="spec-metric-label"><i class="fas fa-check-double" style="color: #10B981; margin-right: 4px;"></i> Primary Facility Applications</span>
+                            <div id="spec-val-apps" class="spec-metric-value">Manufacturing Plants, Distribution Hubs, Machine Shops, Assembly Bays</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
