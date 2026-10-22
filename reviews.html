@@ -52,8 +52,8 @@
                 </div>
             </div>
 
-            <!-- Main Header -->
-            <div class="whb-row whb-general-header">
+            <!-- Main Header with Expandable Industrial Mega-Menus -->
+            <div class="whb-row whb-general-header" style="position: relative;">
                 <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px;">
                     <div class="site-logo">
                         <a href="./index.html">
@@ -62,8 +62,13 @@
                     </div>
 
                     <nav class="main-nav-desktop" style="display: flex; align-items: center; gap: 28px;">
-                        <a href="./services.html" style="font-weight: 600; font-size: 15px; color: var(--ls-primary); text-decoration: none;">Services</a>
-                        <a href="./reviews.html" style="font-weight: 700; font-size: 15px; color: var(--ls-accent); text-decoration: none;">Reviews & Gallery</a>
+                        <button type="button" class="ls-nav-dropdown-trigger" data-mega-target="mega-industries">
+                            Industries <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <button type="button" class="ls-nav-dropdown-trigger" data-mega-target="mega-services">
+                            Services <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <a href="./reviews.html" style="font-weight: 700; font-size: 15px; color: var(--ls-accent); text-decoration: none;">Case Studies &amp; Gallery</a>
                         <a href="./about-us.html" style="font-weight: 600; font-size: 15px; color: var(--ls-primary); text-decoration: none;">About Us</a>
                         <a href="./contact.html" style="font-weight: 600; font-size: 15px; color: var(--ls-primary); text-decoration: none;">Contact</a>
                     </nav>
@@ -77,17 +82,123 @@
                         </a>
                     </div>
                 </div>
+
+                <!-- Mega Menu: Industries -->
+                <div id="mega-industries" class="ls-mega-menu">
+                    <div class="ls-mega-menu-inner">
+                        <div class="ls-mega-intro">
+                            <div>
+                                <span class="ls-eyebrow ls-eyebrow-light">Facility Verticals</span>
+                                <h4>Industries We Serve</h4>
+                                <p>Every facility has distinct mechanical loads, thermal cycles, chemical exposures, and regulatory mandates. We engineer concrete coating systems around how your space operates.</p>
+                            </div>
+                            <a href="./index.html#choose-your-industry" class="btn-ls-underline" style="color: #FFFFFF; border-color: #F87171;">
+                                <span>Explore All 12 Verticals</span> <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        <div class="ls-mega-links-grid">
+                            <a href="./services.html#industrial-flooring" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title"><i class="fas fa-industry" style="color:#F87171;"></i> Manufacturing Plants <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">High-impact, forklift &amp; steel-wheel rated systems</span>
+                            </a>
+                            <a href="./services.html#industrial-flooring" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title"><i class="fas fa-boxes" style="color:#F87171;"></i> Warehousing &amp; Logistics <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Dust-free slabs, OSHA walkways &amp; line striping</span>
+                            </a>
+                            <a href="./services.html#commercial-specialty" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title"><i class="fas fa-flask" style="color:#F87171;"></i> Pharmaceutical &amp; Biotech <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Sanitary, zero-seam coved cleanroom floors</span>
+                            </a>
+                            <a href="./services.html#commercial-specialty" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title"><i class="fas fa-utensils" style="color:#F87171;"></i> Food &amp; Beverage (USDA/FDA) <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Thermal-shock urethane mortar for steam washdowns</span>
+                            </a>
+                            <a href="./services.html#commercial-specialty" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title"><i class="fas fa-microscope" style="color:#F87171;"></i> Cleanrooms &amp; Laboratories <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Chemical containment &amp; Novolac acid resistance</span>
+                            </a>
+                            <a href="./services.html#commercial-retail" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title"><i class="fas fa-building" style="color:#F87171;"></i> Commercial &amp; Stair Towers <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Multi-story safety quartz &amp; designer metallic</span>
+                            </a>
+                            <a href="./services.html#residential-garage" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title"><i class="fas fa-car" style="color:#F87171;"></i> Automotive &amp; Fleet Bays <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Oil, solvent &amp; hot-tire resistant shop floors</span>
+                            </a>
+                            <a href="./services.html#industrial-flooring" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title"><i class="fas fa-plane" style="color:#F87171;"></i> Aviation &amp; Aerospace <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Skydrol-resistant high-reflectivity hangar coatings</span>
+                            </a>
+                            <a href="./services.html#residential-garage" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title"><i class="fas fa-warehouse" style="color:#F87171;"></i> Residential Garages &amp; Basements <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Full-broadcast polyaspartic flake &amp; moisture barriers</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mega Menu: Services -->
+                <div id="mega-services" class="ls-mega-menu">
+                    <div class="ls-mega-menu-inner">
+                        <div class="ls-mega-intro">
+                            <div>
+                                <span class="ls-eyebrow ls-eyebrow-light">Resinous Architecture</span>
+                                <h4>Engineered Flooring Systems</h4>
+                                <p>From ICRI CSP 2–5 planetary diamond grinding and structural spall reconstruction to multi-coat 100% solids epoxy, urethane mortar, and polyaspartic systems.</p>
+                            </div>
+                            <a href="./services.html" class="btn-ls-underline" style="color: #FFFFFF; border-color: #F87171;">
+                                <span>View All Technical Specs</span> <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        <div class="ls-mega-links-grid">
+                            <a href="./services.html#industrial-flooring" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title">100% Solids Industrial Epoxy <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">High-build multi-coat systems (10,500+ PSI)</span>
+                            </a>
+                            <a href="./services.html#commercial-specialty" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title">Cementitious Urethane Mortar <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">3/16&quot;–3/8&quot; thermal shock &amp; chemical slurries</span>
+                            </a>
+                            <a href="./services.html#commercial-retail" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title">Safety Quartz &amp; Integral Coving <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Seamless 4&quot;–6&quot; sanitary wall-to-floor transitions</span>
+                            </a>
+                            <a href="./services.html#residential-garage" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title">Polyaspartic Full-Flake Broadcast <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">100% UV-stable rapid-cure granite textures</span>
+                            </a>
+                            <a href="./services.html#commercial-retail" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title">Architectural Metallic Epoxy <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Three-dimensional pearlescent showroom finishes</span>
+                            </a>
+                            <a href="./services.html#concrete-coatings" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title">Hydrostatic Moisture Mitigation <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Deep-penetrating MVE vapor barrier primers</span>
+                            </a>
+                            <a href="./services.html#stain-seal-concrete" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title">Diamond Grinding &amp; Slab Repair <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">HEPA dustless profiling, joint rebuilding &amp; patching</span>
+                            </a>
+                            <a href="./services.html#stain-seal-concrete" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title">Polished, Stained &amp; Sealed Concrete <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Densified dust-proof architectural slabs</span>
+                            </a>
+                            <a href="./services.html#system-spec-finder" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title">Interactive Spec Selector <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Compare CSP profiles, mil thickness &amp; cure times</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section style="background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-7.jpg') center/cover no-repeat; padding: 85px 20px; color: #FFFFFF; text-align: center;">
+    <section style="background: linear-gradient(rgba(15, 23, 42, 0.84), rgba(15, 23, 42, 0.92)), url('./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-7.jpg') center/cover no-repeat; padding: 85px 20px; color: #FFFFFF; text-align: center;">
         <div style="max-width: 800px; margin: 0 auto;">
-            <div style="display: flex; justify-content: center; align-items: center; gap: 6px; font-size: 20px; color: #F59E0B; margin-bottom: 12px;">
-                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            </div>
-            <h1 style="font-size: 42px; margin: 0 0 15px 0; color: #FFFFFF; font-weight: 900;">Verified Reviews & Project Portfolio</h1>
+            <span class="ls-eyebrow ls-eyebrow-light">Case Studies • Verified Reviews • Project Gallery</span>
+            <h1 style="font-size: 48px; margin: 8px 0 15px 0; color: #FFFFFF;">Proven Results, Case Studies &amp; Project Portfolio</h1>
             <p style="font-size: 18px; line-height: 1.6; color: #CBD5E1; max-width: 650px; margin: 0 auto 25px auto;">
                 Discover why manufacturing facilities, commercial property managers, and homeowners nationwide trust LionStone Floors.
             </p>
@@ -105,8 +216,8 @@
     <section id="customer-reviews" style="padding: 80px 20px; background: #FFFFFF;">
         <div class="container" style="max-width: 1200px; margin: 0 auto;">
             <div style="text-align: center; margin-bottom: 45px;">
-                <span style="color: var(--ls-accent); font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;">Real Client Experiences</span>
-                <h2 style="font-size: 36px; margin: 10px 0;">What Our Clients Say About Us</h2>
+                <span class="ls-eyebrow">Real Client Experiences</span>
+                <h2 style="font-size: 40px; margin: 6px 0 10px 0;">What Our Clients Say About Us</h2>
                 <p style="color: var(--ls-text-muted); max-width: 600px; margin: 0 auto;">
                     Verified reviews from commercial facilities, industrial warehouses, and residential installations nationwide.
                 </p>
@@ -210,8 +321,8 @@
     <section id="portfolio-gallery" style="padding: 80px 20px; background: var(--ls-bg-light);">
         <div class="container" style="max-width: 1200px; margin: 0 auto;">
             <div style="text-align: center; margin-bottom: 30px;">
-                <span style="color: var(--ls-accent); font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;">Visual Showcase</span>
-                <h2 style="font-size: 36px; margin: 10px 0;">Recent Project Transformations</h2>
+                <span class="ls-eyebrow">Visual Showcase</span>
+                <h2 style="font-size: 40px; margin: 6px 0 10px 0;">Recent Project Transformations</h2>
                 <p style="color: var(--ls-text-muted); max-width: 650px; margin: 0 auto;">
                     Filter by project type to see our craftsmanship in garages, commercial showrooms, industrial warehouses, and custom concrete surfaces.
                 </p>
@@ -406,16 +517,23 @@
         </div>
     </section>
 
-    <!-- Consultation CTA -->
-    <section style="padding: 70px 20px; background: var(--ls-primary); color: #FFFFFF; text-align: center;">
-        <div style="max-width: 750px; margin: 0 auto;">
-            <h2 style="font-size: 36px; color: #FFFFFF; margin-bottom: 15px;">Ready for Your Floor Proposal?</h2>
-            <p style="font-size: 17px; color: #CBD5E1; line-height: 1.6; margin-bottom: 30px;">
-                Contact our engineering and estimating team today to schedule an on-site slab evaluation, moisture vapor test, and comprehensive project proposal.
-            </p>
-            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-                <a href="./contact.html" class="btn-ls-primary"><i class="fas fa-building"></i> Request Quote</a>
-                <a href="tel:8608050061" class="btn-ls-secondary"><i class="fas fa-phone-alt"></i> (860) 805-0061</a>
+    <!-- Pre-Footer Architectural Callout Banner -->
+    <section class="ls-prefooter-cta-section">
+        <div class="ls-prefooter-card">
+            <div class="ls-prefooter-text">
+                <span class="ls-eyebrow ls-eyebrow-light">Engineered Concrete Coatings</span>
+                <h2>Ready for Floors That Perform Under Any Load?</h2>
+                <p>
+                    Contact our engineering and estimating team today to schedule an on-site slab evaluation, moisture vapor test, and comprehensive project proposal.
+                </p>
+            </div>
+            <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+                <a href="./contact.html" class="btn-ls-primary" style="font-size: 15px !important; padding: 16px 32px !important;">
+                    Request a Quote <i class="fas fa-arrow-right"></i>
+                </a>
+                <button type="button" class="btn-ls-secondary" data-open-floor-quiz style="font-size: 14px !important; padding: 14px 24px !important;">
+                    <i class="fas fa-clipboard-check"></i> Take Floor Assessment
+                </button>
             </div>
         </div>
     </section>

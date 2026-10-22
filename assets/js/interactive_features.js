@@ -4,9 +4,11 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
+    initMegaMenus();
     initBeforeAfterSliders();
     initColorFlakeVisualizer();
     initSystemSpecSelector();
+    initFloorAssessmentQuiz();
     initStickyMobileBar();
     initGalleryFilters();
 });
@@ -259,5 +261,295 @@ function initGalleryFilters() {
                 }
             });
         });
+    });
+}
+
+/* ==========================================================================
+   6. Expandable Architectural Mega-Menus (Industries & Services)
+   ========================================================================== */
+function initMegaMenus() {
+    const triggers = document.querySelectorAll('[data-ls-menu]');
+    const menus = document.querySelectorAll('.ls-mega-menu');
+    if (!triggers.length || !menus.length) return;
+
+    function closeAllMenus() {
+        menus.forEach(m => m.classList.remove('active'));
+        triggers.forEach(t => t.classList.remove('active'));
+    }
+
+    triggers.forEach(trigger => {
+        trigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const targetName = this.getAttribute('data-ls-menu');
+            const targetMenu = document.querySelector(`.ls-mega-menu[data-ls-menu-panel="${targetName}"]`);
+            if (!targetMenu) return;
+
+            const wasActive = targetMenu.classList.contains('active');
+            closeAllMenus();
+            if (!wasActive) {
+                targetMenu.classList.add('active');
+                this.classList.add('active');
+            }
+        });
+    });
+
+    document.querySelectorAll('[data-ls-close-menu]').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeAllMenus();
+        });
+    });
+
+    document.querySelectorAll('.ls-mega-menu a').forEach(link => {
+        link.addEventListener('click', function() {
+            closeAllMenus();
+        });
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.ls-mega-menu') && !e.target.closest('[data-ls-menu]')) {
+            closeAllMenus();
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeAllMenus();
+    });
+}
+
+/* ==========================================================================
+   7. Interactive 60-Second Floor System Assessment Modal ("Quiz")
+   ========================================================================== */
+function initFloorAssessmentQuiz() {
+    if (!document.getElementById('ls-quiz-modal-overlay')) {
+        const modalHTML = `
+        <div id="ls-quiz-modal-overlay" class="lionstone-modal-overlay" aria-hidden="true">
+            <div class="ls-quiz-modal-card" role="dialog" aria-labelledby="ls-quiz-title">
+                <div class="ls-quiz-header">
+                    <div>
+                        <span class="ls-eyebrow ls-eyebrow-light" style="font-size: 12px !important; margin-bottom: 2px;">60-Second Engineering Assessment</span>
+                        <h4 id="ls-quiz-title">Find the Right Floor System for Your Space</h4>
+                    </div>
+                    <button type="button" id="ls-quiz-close-btn" class="ls-mega-close" aria-label="Close Assessment">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="ls-quiz-body" id="ls-quiz-step-container">
+                    <!-- Dynamic step content injected here -->
+                </div>
+            </div>
+        </div>`;
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = modalHTML;
+        document.body.appendChild(wrapper.firstElementChild);
+    }
+
+    const overlay = document.getElementById('ls-quiz-modal-overlay');
+    const stepContainer = document.getElementById('ls-quiz-step-container');
+    const closeBtn = document.getElementById('ls-quiz-close-btn');
+
+    const state = {
+        facility: '',
+        challenge: '',
+        sqft: ''
+    };
+
+    function renderStep1() {
+        stepContainer.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-size: 12px; font-weight: 800; color: var(--ls-accent); text-transform: uppercase; letter-spacing: 0.08em;">Step 1 of 3 • Facility Type</span>
+                <span style="font-size: 12px; color: var(--ls-text-muted);">33% Complete</span>
+            </div>
+            <h3 style="font-size: 24px; margin: 0 0 6px 0; color: var(--ls-primary);">What type of facility or space are you coating?</h3>
+            <p style="font-size: 14px; color: var(--ls-text-muted); margin: 0;">Select the environment that best matches your project:</p>
+            <div class="ls-quiz-options-grid">
+                <button type="button" class="ls-quiz-option-btn" data-val="Manufacturing & Heavy Industrial">
+                    <i class="fas fa-industry"></i>
+                    <div><strong>Manufacturing & Plant</strong><span>Assembly lines, machine shops, heavy equipment</span></div>
+                </button>
+                <button type="button" class="ls-quiz-option-btn" data-val="Warehousing & Logistics">
+                    <i class="fas fa-boxes"></i>
+                    <div><strong>Warehouse & Logistics</strong><span>Distribution hubs, forklift aisles, safety lanes</span></div>
+                </button>
+                <button type="button" class="ls-quiz-option-btn" data-val="Food, Beverage & Cleanroom">
+                    <i class="fas fa-flask"></i>
+                    <div><strong>Food, Pharma & Cleanroom</strong><span>Sanitary washdown, labs, commercial kitchens</span></div>
+                </button>
+                <button type="button" class="ls-quiz-option-btn" data-val="Commercial, Retail & Stairwells">
+                    <i class="fas fa-building"></i>
+                    <div><strong>Commercial & Stair Towers</strong><span>Showrooms, schools, multi-tier stairs, ramps</span></div>
+                </button>
+                <button type="button" class="ls-quiz-option-btn" data-val="Automotive & Fleet Service Bays">
+                    <i class="fas fa-wrench"></i>
+                    <div><strong>Automotive & Service Bays</strong><span>Dealerships, fleet maintenance, aviation hangars</span></div>
+                </button>
+                <button type="button" class="ls-quiz-option-btn" data-val="Residential Garage & Basement">
+                    <i class="fas fa-warehouse"></i>
+                    <div><strong>Residential Garage / Basement</strong><span>Private showroom garages & moisture barriers</span></div>
+                </button>
+            </div>
+        `;
+        stepContainer.querySelectorAll('.ls-quiz-option-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                state.facility = this.getAttribute('data-val');
+                renderStep2();
+            });
+        });
+    }
+
+    function renderStep2() {
+        stepContainer.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-size: 12px; font-weight: 800; color: var(--ls-accent); text-transform: uppercase; letter-spacing: 0.08em;">Step 2 of 3 • Operating Conditions</span>
+                <span style="font-size: 12px; color: var(--ls-text-muted);">66% Complete</span>
+            </div>
+            <h3 style="font-size: 24px; margin: 0 0 6px 0; color: var(--ls-primary);">What is your primary operational requirement?</h3>
+            <p style="font-size: 14px; color: var(--ls-text-muted); margin: 0;">Select the most critical performance factor for this slab:</p>
+            <div class="ls-quiz-options-grid">
+                <button type="button" class="ls-quiz-option-btn" data-val="Heavy Forklift & Impact Loads">
+                    <i class="fas fa-dumbbell"></i>
+                    <div><strong>Forklift & Heavy Impact</strong><span>High compressive strength & abrasion resistance</span></div>
+                </button>
+                <button type="button" class="ls-quiz-option-btn" data-val="Chemical, Acid & Oil Containment">
+                    <i class="fas fa-vial"></i>
+                    <div><strong>Chemical & Fluid Resistance</strong><span>Acids, solvents, hydraulic fluids, oils & salts</span></div>
+                </button>
+                <button type="button" class="ls-quiz-option-btn" data-val="Thermal Shock & Steam Washdown">
+                    <i class="fas fa-temperature-high"></i>
+                    <div><strong>Thermal Shock & Washdown</strong><span>Hot water/steam cleaning, USDA/FDA sanitation</span></div>
+                </button>
+                <button type="button" class="ls-quiz-option-btn" data-val="Spalled Concrete & Crack Remediation">
+                    <i class="fas fa-hammer"></i>
+                    <div><strong>Damaged Slab Restoration</strong><span>Cracks, spalling, trenches & moisture mitigation</span></div>
+                </button>
+                <button type="button" class="ls-quiz-option-btn" data-val="Rapid Turnaround / Minimal Downtime">
+                    <i class="fas fa-bolt"></i>
+                    <div><strong>Rapid Return to Service</strong><span>Weekend/overnight shutdown & fast-cure resins</span></div>
+                </button>
+                <button type="button" class="ls-quiz-option-btn" data-val="High-Traction Safety & Aesthetics">
+                    <i class="fas fa-shield-alt"></i>
+                    <div><strong>Slip-Resistance & Aesthetics</strong><span>OSHA walkways, safety quartz, flake or metallic</span></div>
+                </button>
+            </div>
+            <div style="margin-top: 16px;">
+                <button type="button" id="ls-quiz-back-1" style="background: none; border: none; color: var(--ls-text-muted); font-size: 13px; cursor: pointer; font-weight: 600;">&larr; Back to Step 1</button>
+            </div>
+        `;
+        stepContainer.querySelectorAll('.ls-quiz-option-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                state.challenge = this.getAttribute('data-val');
+                renderStep3();
+            });
+        });
+        document.getElementById('ls-quiz-back-1').addEventListener('click', renderStep1);
+    }
+
+    function renderStep3() {
+        stepContainer.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-size: 12px; font-weight: 800; color: var(--ls-accent); text-transform: uppercase; letter-spacing: 0.08em;">Step 3 of 3 • Project Footprint</span>
+                <span style="font-size: 12px; color: var(--ls-text-muted);">95% Complete</span>
+            </div>
+            <h3 style="font-size: 24px; margin: 0 0 6px 0; color: var(--ls-primary);">What is the approximate square footage?</h3>
+            <p style="font-size: 14px; color: var(--ls-text-muted); margin: 0;">Helps our engineering team size grinding equipment and crew mobilization:</p>
+            <div class="ls-quiz-options-grid">
+                <button type="button" class="ls-quiz-option-btn" data-val="Under 1,000 sq. ft.">
+                    <i class="fas fa-vector-square"></i>
+                    <div><strong>Under 1,000 Sq. Ft.</strong><span>Single bays, ramps, stairwells, or garages</span></div>
+                </button>
+                <button type="button" class="ls-quiz-option-btn" data-val="1,000 – 5,000 sq. ft.">
+                    <i class="fas fa-th-large"></i>
+                    <div><strong>1,000 – 5,000 Sq. Ft.</strong><span>Commercial suites, kitchens, workshops & multi-bay</span></div>
+                </button>
+                <button type="button" class="ls-quiz-option-btn" data-val="5,000 – 25,000 sq. ft.">
+                    <i class="fas fa-warehouse"></i>
+                    <div><strong>5,000 – 25,000 Sq. Ft.</strong><span>Production floors, processing plants & warehouses</span></div>
+                </button>
+                <button type="button" class="ls-quiz-option-btn" data-val="25,000+ sq. ft.">
+                    <i class="fas fa-globe-americas"></i>
+                    <div><strong>25,000+ Sq. Ft.</strong><span>Large-scale industrial plants & distribution centers</span></div>
+                </button>
+            </div>
+            <div style="margin-top: 16px;">
+                <button type="button" id="ls-quiz-back-2" style="background: none; border: none; color: var(--ls-text-muted); font-size: 13px; cursor: pointer; font-weight: 600;">&larr; Back to Step 2</button>
+            </div>
+        `;
+        stepContainer.querySelectorAll('.ls-quiz-option-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                state.sqft = this.getAttribute('data-val');
+                renderResult();
+            });
+        });
+        document.getElementById('ls-quiz-back-2').addEventListener('click', renderStep2);
+    }
+
+    function renderResult() {
+        let recSystem = 'High-Build 100% Solids Industrial Epoxy + Polyurethane Topcoat';
+        let recPrep = 'ICRI CSP 3–4 Planetary Diamond Grind & Joint Remediation';
+        let recBuild = '40 – 125 mils Multi-Layer High-Build System';
+
+        if (state.facility.includes('Food') || state.challenge.includes('Thermal')) {
+            recSystem = 'Cementitious Urethane Mortar + Antimicrobial Quartz Broadcast';
+            recPrep = 'ICRI CSP 4–5 Heavy Profiling + Integral Cove Base';
+            recBuild = '3/16" to 3/8" (187–375 mils) Thermal-Shock System';
+        } else if (state.challenge.includes('Chemical')) {
+            recSystem = '100% Solids Novolac Chemical-Containment Epoxy System';
+            recPrep = 'ICRI CSP 3–5 Diamond Grind + Trench/Crack Sealing';
+            recBuild = '60 – 180 mils High Cross-Link Density System';
+        } else if (state.facility.includes('Residential') || state.facility.includes('Automotive')) {
+            recSystem = 'Full-Refusal Polyaspartic / Polyurea Flake Broadcast System';
+            recPrep = 'ICRI CSP 2–3 Dustless HEPA Diamond Grind + Polyurea Crack Fill';
+            recBuild = '35 – 50 mils UV-Stable Zero Hot-Tire Pickup System';
+        } else if (state.facility.includes('Commercial')) {
+            recSystem = 'High-Traction Architectural Quartz / Designer Metallic System';
+            recPrep = 'ICRI CSP 2–3 Diamond Grind + Structural Spall Rebuild';
+            recBuild = '35 – 80 mils + OSHA Safety Nosing / Non-Slip Topcoat';
+        }
+
+        const quoteUrl = `./contact.html?system=${encodeURIComponent(recSystem + ' (' + state.facility + ')')}&sqft=${encodeURIComponent(state.sqft)}`;
+
+        stepContainer.innerHTML = `
+            <div style="background: #F0FDF4; border: 1px solid #86EFAC; padding: 12px 16px; border-radius: 6px; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; color: #166534; font-size: 13px; font-weight: 700;">
+                <i class="fas fa-check-circle" style="font-size: 18px; color: #16A34A;"></i>
+                <span>Recommended LionStone Specification Matched for ${state.facility}</span>
+            </div>
+            <h3 style="font-size: 25px; margin: 0 0 10px 0; color: var(--ls-primary);">${recSystem}</h3>
+            <div style="background: var(--ls-bg-light); border-left: 4px solid var(--ls-accent); padding: 16px; margin-bottom: 20px; display: grid; gap: 8px; font-size: 13.5px;">
+                <div><strong><i class="fas fa-drafting-compass" style="color: var(--ls-accent); width: 18px;"></i> Surface Preparation:</strong> ${recPrep}</div>
+                <div><strong><i class="fas fa-layer-group" style="color: var(--ls-accent); width: 18px;"></i> System Build Profile:</strong> ${recBuild}</div>
+                <div><strong><i class="fas fa-bullseye" style="color: var(--ls-accent); width: 18px;"></i> Primary Focus:</strong> ${state.challenge} (${state.sqft})</div>
+            </div>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+                <a href="${quoteUrl}" class="btn-ls-primary" style="flex: 1; justify-content: center;">
+                    Request Site Visit & Quote for This Spec <i class="fas fa-arrow-right"></i>
+                </a>
+                <button type="button" id="ls-quiz-restart" style="background: none; border: 1px solid var(--ls-border); padding: 12px 16px; border-radius: 4px; font-size: 13px; font-weight: 700; cursor: pointer; color: var(--ls-text-dark);">
+                    Start Over
+                </button>
+            </div>
+        `;
+        document.getElementById('ls-quiz-restart').addEventListener('click', renderStep1);
+    }
+
+    function openQuiz(e) {
+        if (e) e.preventDefault();
+        renderStep1();
+        overlay.classList.add('active');
+        overlay.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeQuiz() {
+        overlay.classList.remove('active');
+        overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    document.querySelectorAll('[data-open-floor-quiz]').forEach(btn => {
+        btn.addEventListener('click', openQuiz);
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeQuiz);
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) closeQuiz();
     });
 }

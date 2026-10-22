@@ -2,6 +2,8 @@
    LionStone Floors - Luxury Architectural Design System & Component Library
    ========================================================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
+
 :root {
     --ls-primary: #0F172A;        /* Deep Slate Onyx */
     --ls-primary-dark: #090D16;
@@ -17,9 +19,11 @@
     --ls-text-light: #F8FAFC;
     --ls-border: #E2E8F0;
     --ls-border-dark: #334155;
-    --ls-radius-sm: 6px;
-    --ls-radius-md: 12px;
-    --ls-radius-lg: 20px;
+    --ls-font-display: 'Barlow Condensed', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --ls-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --ls-radius-sm: 4px;
+    --ls-radius-md: 8px;
+    --ls-radius-lg: 12px;
     --ls-radius-full: 9999px;
     --ls-shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.06);
     --ls-shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
@@ -40,17 +44,58 @@ html {
 body {
     color: var(--ls-text-dark);
     background-color: #FFFFFF;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--ls-font-sans);
     -webkit-font-smoothing: antialiased;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', 'Cardo', serif;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-family: var(--ls-font-display);
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    line-height: 1.08;
     color: var(--ls-primary);
+}
+
+/* Signature Architectural Square-Dot Eyebrow */
+.ls-eyebrow {
+    position: relative;
+    display: inline-block;
+    font-family: var(--ls-font-display);
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    color: var(--ls-accent);
+    padding-left: 16px;
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.ls-eyebrow::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    background-color: var(--ls-accent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.ls-eyebrow-light {
+    color: #FFFFFF !important;
+}
+
+.ls-accent-hr {
+    margin: 10px 0 14px 0;
+    border: 0;
+    border-top: 3px solid var(--ls-accent);
+    width: 38px;
+    opacity: 1;
 }
 
 /* Premium Scrollbar */
@@ -177,25 +222,26 @@ h1, h2, h3, h4, h5, h6 {
 .btn-ls-primary {
     background: var(--ls-accent) !important;
     color: #FFFFFF !important;
-    font-weight: 700 !important;
-    font-size: 15px !important;
-    padding: 14px 32px !important;
-    border-radius: 30px !important;
+    font-family: var(--ls-font-display) !important;
+    font-weight: 800 !important;
+    font-size: 16px !important;
+    padding: 13px 28px !important;
+    border-radius: 4px !important;
     border: none !important;
     box-shadow: 0 4px 15px rgba(206, 3, 40, 0.3) !important;
     display: inline-flex !important;
     align-items: center !important;
     gap: 10px !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.05em !important;
-    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+    letter-spacing: 0.06em !important;
+    transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
     cursor: pointer;
     text-decoration: none !important;
 }
 
 .btn-ls-primary:hover {
     background: var(--ls-accent-hover) !important;
-    transform: translateY(-3px) !important;
+    transform: translateY(-2px) !important;
     box-shadow: 0 8px 25px rgba(206, 3, 40, 0.45) !important;
     color: #FFFFFF !important;
 }
@@ -203,17 +249,18 @@ h1, h2, h3, h4, h5, h6 {
 .btn-ls-secondary {
     background: transparent !important;
     color: #FFFFFF !important;
-    font-weight: 700 !important;
-    font-size: 15px !important;
-    padding: 14px 30px !important;
-    border-radius: 30px !important;
-    border: 2px solid rgba(255, 255, 255, 0.8) !important;
+    font-family: var(--ls-font-display) !important;
+    font-weight: 800 !important;
+    font-size: 16px !important;
+    padding: 13px 26px !important;
+    border-radius: 4px !important;
+    border: 2px solid rgba(255, 255, 255, 0.85) !important;
     display: inline-flex !important;
     align-items: center !important;
     gap: 10px !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.05em !important;
-    transition: all 0.3s ease !important;
+    letter-spacing: 0.06em !important;
+    transition: all 0.25s ease !important;
     cursor: pointer;
     text-decoration: none !important;
 }
@@ -221,8 +268,51 @@ h1, h2, h3, h4, h5, h6 {
 .btn-ls-secondary:hover {
     background: #FFFFFF !important;
     color: var(--ls-primary) !important;
-    transform: translateY(-3px) !important;
+    transform: translateY(-2px) !important;
     box-shadow: var(--ls-shadow-md) !important;
+}
+
+.btn-ls-underline {
+    padding: 10px 4px;
+    display: inline-flex;
+    align-items: center;
+    min-width: 190px;
+    justify-content: space-between;
+    font-size: 15px;
+    font-weight: 800;
+    background-color: transparent;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-decoration: none !important;
+    color: var(--ls-primary);
+    font-family: var(--ls-font-display);
+    border-bottom: 2px solid var(--ls-primary);
+    transition: all 0.25s ease;
+}
+
+.btn-ls-underline i {
+    margin-left: 10px;
+    color: var(--ls-accent);
+    transition: transform 0.25s ease;
+}
+
+.btn-ls-underline:hover {
+    color: var(--ls-accent);
+    border-bottom-color: var(--ls-accent);
+}
+
+.btn-ls-underline:hover i {
+    transform: translateX(4px);
+}
+
+.btn-ls-underline-light {
+    color: #FFFFFF !important;
+    border-bottom-color: #FFFFFF !important;
+}
+
+.btn-ls-underline-light:hover {
+    color: #F87171 !important;
+    border-bottom-color: #F87171 !important;
 }
 
 /* ==========================================================================
@@ -968,5 +1058,772 @@ h1, h2, h3, h4, h5, h6 {
     }
     .spec-metrics-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================================
+   Expandable Architectural Mega-Menu Navigation
+   ========================================================================== */
+.whb-general-header {
+    position: relative;
+}
+
+.main-nav-desktop a.ls-nav-link,
+.main-nav-desktop button.ls-nav-link {
+    font-family: var(--ls-font-display);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ls-primary);
+    text-decoration: none;
+    background: transparent;
+    border: none;
+    padding: 8px 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s ease;
+}
+
+.main-nav-desktop a.ls-nav-link:hover,
+.main-nav-desktop button.ls-nav-link:hover,
+.main-nav-desktop a.ls-nav-link.active,
+.main-nav-desktop button.ls-nav-link.active {
+    color: var(--ls-accent);
+}
+
+.main-nav-desktop .ls-nav-link i.fa-chevron-down {
+    font-size: 11px;
+    color: var(--ls-accent);
+    transition: transform 0.25s ease;
+}
+
+.main-nav-desktop .ls-nav-link.active i.fa-chevron-down {
+    transform: rotate(180deg);
+}
+
+.ls-mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #0B0F19;
+    color: #FFFFFF;
+    border-top: 2px solid var(--ls-accent);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
+    padding: 32px 25px 36px 25px;
+    z-index: 999999;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+}
+
+.ls-mega-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition-delay: 0s;
+}
+
+.ls-mega-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto 18px auto;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.ls-mega-header h6 {
+    color: #FFFFFF;
+    font-size: 20px;
+    margin: 0;
+    letter-spacing: 0.06em;
+}
+
+.ls-mega-close {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.ls-mega-close:hover {
+    background: var(--ls-accent);
+    border-color: var(--ls-accent);
+}
+
+.ls-mega-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 28px;
+}
+
+.ls-mega-col h5 {
+    color: #94A3B8;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+}
+
+.ls-mega-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ls-mega-list li a {
+    color: #F8FAFC;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding-left: 16px;
+    position: relative;
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+
+.ls-mega-list li a::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--ls-accent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.2s ease;
+}
+
+.ls-mega-list li a:hover {
+    color: #F87171;
+    transform: translateX(4px);
+}
+
+/* ==========================================================================
+   "Not Sure Which Floor Is Right For You?" Assessment Banner & Quiz Modal
+   ========================================================================== */
+.ls-assessment-bar {
+    background: #090D16;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 36px 20px;
+    color: #FFFFFF;
+}
+
+.ls-assessment-bar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.ls-assessment-bar h3 {
+    color: #FFFFFF;
+    font-size: 28px;
+    margin: 0;
+    padding-left: 18px;
+    position: relative;
+    letter-spacing: 0.02em;
+}
+
+.ls-assessment-bar h3::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--ls-accent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.ls-assessment-cta-group {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.ls-assessment-cta-group span.ls-time-tag {
+    font-family: var(--ls-font-display);
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #CBD5E1;
+}
+
+/* Assessment Quiz Modal */
+.ls-quiz-modal-card {
+    background: #FFFFFF;
+    border-radius: 8px;
+    max-width: 680px;
+    width: 100%;
+    padding: 0;
+    text-align: left;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--ls-border);
+    overflow: hidden;
+    transform: scale(0.95);
+    transition: transform 0.25s ease;
+}
+
+.lionstone-modal-overlay.active .ls-quiz-modal-card {
+    transform: scale(1);
+}
+
+.ls-quiz-header {
+    background: #0F172A;
+    color: #FFFFFF;
+    padding: 24px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid var(--ls-accent);
+}
+
+.ls-quiz-header h4 {
+    color: #FFFFFF;
+    font-size: 24px;
+    margin: 4px 0 0 0;
+}
+
+.ls-quiz-body {
+    padding: 30px;
+}
+
+.ls-quiz-options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.ls-quiz-option-btn {
+    background: var(--ls-bg-light);
+    border: 2px solid var(--ls-border);
+    border-radius: 6px;
+    padding: 16px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.ls-quiz-option-btn i {
+    color: var(--ls-accent);
+    font-size: 18px;
+    margin-top: 2px;
+}
+
+.ls-quiz-option-btn strong {
+    display: block;
+    font-family: var(--ls-font-display);
+    font-size: 17px;
+    text-transform: uppercase;
+    color: var(--ls-primary);
+    margin-bottom: 3px;
+}
+
+.ls-quiz-option-btn span {
+    font-size: 12px;
+    color: var(--ls-text-muted);
+    line-height: 1.4;
+    display: block;
+}
+
+.ls-quiz-option-btn:hover,
+.ls-quiz-option-btn.selected {
+    border-color: var(--ls-accent);
+    background: #FFF5F5;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+    .ls-quiz-options-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================================
+   Architectural Service Cards (With Full-Bleed Action Footer)
+   ========================================================================== */
+.ls-arch-services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+    gap: 24px;
+}
+
+.ls-arch-service-card {
+    background: #FFFFFF;
+    border: 1px solid #CBD5E1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: var(--ls-shadow-sm);
+}
+
+.ls-arch-service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--ls-shadow-lg);
+    border-color: var(--ls-primary);
+}
+
+.ls-arch-card-img {
+    height: 205px;
+    overflow: hidden;
+    position: relative;
+}
+
+.ls-arch-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.45s ease;
+}
+
+.ls-arch-service-card:hover .ls-arch-card-img img {
+    transform: scale(1.06);
+}
+
+.ls-arch-card-content {
+    padding: 26px 26px 22px 26px;
+    flex: 1;
+}
+
+.ls-arch-card-content h3 {
+    font-size: 26px;
+    margin: 0;
+    color: var(--ls-primary);
+}
+
+.ls-arch-card-content p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ls-text-muted);
+    margin: 0;
+}
+
+.ls-arch-card-footer {
+    background: #0F172A;
+    color: #FFFFFF !important;
+    padding: 18px 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-transform: uppercase;
+    text-decoration: none !important;
+    font-family: var(--ls-font-display);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    transition: background 0.25s ease;
+}
+
+.ls-arch-card-footer i {
+    color: var(--ls-accent);
+    transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.ls-arch-service-card:hover .ls-arch-card-footer {
+    background: var(--ls-accent);
+}
+
+.ls-arch-service-card:hover .ls-arch-card-footer i {
+    color: #FFFFFF;
+    transform: translateX(4px);
+}
+
+/* ==========================================================================
+   Connected Blueprint Process Grid ("HOW WE CAN HELP")
+   ========================================================================== */
+.ls-process-blueprint-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin-top: 40px;
+    border: 1px solid #CBD5E1;
+    background: #FFFFFF;
+}
+
+.ls-process-card {
+    padding: 32px 24px;
+    border-right: 1px solid #CBD5E1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 28px;
+    transition: background 0.25s ease;
+}
+
+.ls-process-card:last-child {
+    border-right: none;
+}
+
+.ls-process-card:hover {
+    background: #F8FAFC;
+}
+
+.ls-process-step-label {
+    font-family: var(--ls-font-display);
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ls-accent);
+    margin: 0;
+}
+
+.ls-process-card h4 {
+    font-size: 23px;
+    margin: 0 0 10px 0;
+    color: var(--ls-primary);
+}
+
+.ls-process-card p {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ls-text-muted);
+    margin: 0;
+}
+
+.ls-process-icon-box {
+    width: 54px;
+    height: 54px;
+    border-radius: 6px;
+    background: #0F172A;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    border-bottom: 3px solid var(--ls-accent);
+}
+
+@media (max-width: 992px) {
+    .ls-process-blueprint-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .ls-process-card {
+        border-bottom: 1px solid #CBD5E1;
+    }
+}
+
+@media (max-width: 600px) {
+    .ls-process-blueprint-grid {
+        grid-template-columns: 1fr;
+    }
+    .ls-process-card {
+        border-right: none;
+    }
+}
+
+/* ==========================================================================
+   "Choose Your Industry" Dark Architectural Showcase
+   ========================================================================== */
+.ls-industry-section {
+    background: #090D16;
+    padding: 80px 20px;
+    color: #FFFFFF;
+}
+
+.ls-industry-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding-bottom: 24px;
+    margin-bottom: 36px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.ls-industry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+    gap: 16px;
+}
+
+.ls-industry-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    padding: 24px 20px;
+    min-height: 205px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-decoration: none !important;
+    transition: all 0.25s ease;
+    position: relative;
+}
+
+.ls-industry-card:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: var(--ls-accent);
+    transform: translateY(-4px);
+}
+
+.ls-industry-card-icon {
+    width: 44px;
+    height: 44px;
+    background: rgba(206, 3, 40, 0.16);
+    border: 1px solid rgba(206, 3, 40, 0.35);
+    color: #F87171;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+    margin-bottom: 16px;
+}
+
+.ls-industry-card h5 {
+    color: #FFFFFF;
+    font-size: 21px;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+    line-height: 1.15;
+}
+
+.ls-industry-card p {
+    color: #94A3B8;
+    font-size: 12.5px;
+    line-height: 1.45;
+    margin: 0 0 14px 0;
+}
+
+.ls-industry-card span.ls-ind-link {
+    font-family: var(--ls-font-display);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #FFFFFF;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ls-industry-card span.ls-ind-link i {
+    color: var(--ls-accent);
+    transition: transform 0.2s ease;
+}
+
+.ls-industry-card:hover span.ls-ind-link i {
+    transform: translateX(4px);
+}
+
+/* ==========================================================================
+   "Proven Results Through Real Cases" Technical Case Studies
+   ========================================================================== */
+.ls-case-studies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 35px;
+}
+
+.ls-case-card {
+    background: #FFFFFF;
+    border: 1px solid var(--ls-border);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    box-shadow: var(--ls-shadow-sm);
+}
+
+.ls-case-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--ls-shadow-lg);
+    border-color: #94A3B8;
+}
+
+.ls-case-img-wrap {
+    height: 240px;
+    overflow: hidden;
+    position: relative;
+}
+
+.ls-case-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.45s ease;
+}
+
+.ls-case-card:hover .ls-case-img-wrap img {
+    transform: scale(1.05);
+}
+
+.ls-case-tag {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: rgba(15, 23, 42, 0.9);
+    color: #FFFFFF;
+    font-family: var(--ls-font-display);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 5px 12px;
+    border-left: 3px solid var(--ls-accent);
+}
+
+.ls-case-body {
+    padding: 26px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ls-case-body h4 {
+    font-size: 22px;
+    margin: 0 0 12px 0;
+    line-height: 1.2;
+    color: var(--ls-primary);
+}
+
+.ls-case-body p {
+    font-size: 14px;
+    color: var(--ls-text-muted);
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+}
+
+.ls-case-specs {
+    background: var(--ls-bg-light);
+    border-left: 3px solid var(--ls-accent);
+    padding: 10px 14px;
+    font-size: 12.5px;
+    color: var(--ls-primary);
+    margin-bottom: 18px;
+}
+
+.ls-case-link {
+    font-family: var(--ls-font-display);
+    font-size: 15px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ls-accent);
+    text-decoration: none !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ls-case-link:hover {
+    color: var(--ls-primary);
+}
+
+/* ==========================================================================
+   Industrial Standards Strip & Pre-Footer Callout Box
+   ========================================================================== */
+.ls-standards-strip {
+    background: #FFFFFF;
+    border-top: 1px solid var(--ls-border);
+    border-bottom: 1px solid var(--ls-border);
+    padding: 36px 20px;
+}
+
+.ls-standards-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+    gap: 16px;
+    text-align: center;
+}
+
+.ls-standard-pill {
+    padding: 16px 12px;
+    border: 1px solid var(--ls-border);
+    background: var(--ls-bg-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.ls-standard-pill i {
+    color: var(--ls-accent);
+    font-size: 20px;
+}
+
+.ls-standard-pill strong {
+    font-family: var(--ls-font-display);
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ls-primary);
+}
+
+.ls-standard-pill span {
+    font-size: 11.5px;
+    color: var(--ls-text-muted);
+}
+
+.ls-prefooter-cta-section {
+    background: linear-gradient(#F8FAFC 55%, #0B0F19 55%);
+    padding: 20px 20px 0 20px;
+}
+
+.ls-prefooter-cta-box {
+    max-width: 1120px;
+    margin: 0 auto;
+    background: linear-gradient(90deg, rgba(9, 13, 22, 0.92) 0%, rgba(15, 23, 42, 0.82) 100%), url('../images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-3.jpg') center/cover no-repeat;
+    padding: 65px 50px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 25px;
+    border-left: 5px solid var(--ls-accent);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+}
+
+.ls-prefooter-cta-box h2 {
+    color: #FFFFFF;
+    font-size: 40px;
+    margin: 6px 0 0 0;
+    max-width: 540px;
+}
+
+@media (max-width: 768px) {
+    .ls-prefooter-cta-box {
+        padding: 40px 25px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .ls-prefooter-cta-box h2 {
+        font-size: 30px;
     }
 }

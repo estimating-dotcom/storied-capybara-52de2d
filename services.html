@@ -52,8 +52,8 @@
                 </div>
             </div>
 
-            <!-- Main Header -->
-            <div class="whb-row whb-general-header">
+            <!-- Main Header with Expandable Industrial Mega-Menus -->
+            <div class="whb-row whb-general-header" style="position: relative;">
                 <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px;">
                     <div class="site-logo">
                         <a href="./index.html">
@@ -62,8 +62,13 @@
                     </div>
 
                     <nav class="main-nav-desktop" style="display: flex; align-items: center; gap: 28px;">
-                        <a href="./services.html" style="font-weight: 700; font-size: 15px; color: var(--ls-accent); text-decoration: none;">Services</a>
-                        <a href="./reviews.html" style="font-weight: 600; font-size: 15px; color: var(--ls-primary); text-decoration: none;">Reviews & Gallery</a>
+                        <button type="button" class="ls-nav-dropdown-trigger" data-mega-target="mega-industries">
+                            Industries <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <button type="button" class="ls-nav-dropdown-trigger" data-mega-target="mega-services" style="color: var(--ls-accent);">
+                            Services <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <a href="./reviews.html" style="font-weight: 600; font-size: 15px; color: var(--ls-primary); text-decoration: none;">Case Studies &amp; Gallery</a>
                         <a href="./about-us.html" style="font-weight: 600; font-size: 15px; color: var(--ls-primary); text-decoration: none;">About Us</a>
                         <a href="./contact.html" style="font-weight: 600; font-size: 15px; color: var(--ls-primary); text-decoration: none;">Contact</a>
                     </nav>
@@ -77,33 +82,157 @@
                         </a>
                     </div>
                 </div>
+
+                <!-- Mega Menu: Industries -->
+                <div id="mega-industries" class="ls-mega-menu">
+                    <div class="ls-mega-menu-inner">
+                        <div class="ls-mega-intro">
+                            <div>
+                                <span class="ls-eyebrow ls-eyebrow-light">Facility Verticals</span>
+                                <h4>Industries We Serve</h4>
+                                <p>Every facility has distinct mechanical loads, thermal cycles, chemical exposures, and regulatory mandates. We engineer concrete coating systems around how your space operates.</p>
+                            </div>
+                            <a href="./index.html#choose-your-industry" class="btn-ls-underline" style="color: #FFFFFF; border-color: #F87171;">
+                                <span>Explore All 12 Verticals</span> <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        <div class="ls-mega-links-grid">
+                            <a href="#industrial-flooring" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title"><i class="fas fa-industry" style="color:#F87171;"></i> Manufacturing Plants <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">High-impact, forklift &amp; steel-wheel rated systems</span>
+                            </a>
+                            <a href="#industrial-flooring" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title"><i class="fas fa-boxes" style="color:#F87171;"></i> Warehousing &amp; Logistics <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Dust-free slabs, OSHA walkways &amp; line striping</span>
+                            </a>
+                            <a href="#commercial-specialty" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title"><i class="fas fa-flask" style="color:#F87171;"></i> Pharmaceutical &amp; Biotech <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Sanitary, zero-seam coved cleanroom floors</span>
+                            </a>
+                            <a href="#commercial-specialty" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title"><i class="fas fa-utensils" style="color:#F87171;"></i> Food &amp; Beverage (USDA/FDA) <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Thermal-shock urethane mortar for steam washdowns</span>
+                            </a>
+                            <a href="#commercial-specialty" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title"><i class="fas fa-microscope" style="color:#F87171;"></i> Cleanrooms &amp; Laboratories <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Chemical containment &amp; Novolac acid resistance</span>
+                            </a>
+                            <a href="#commercial-retail" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title"><i class="fas fa-building" style="color:#F87171;"></i> Commercial &amp; Stair Towers <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Multi-story safety quartz &amp; designer metallic</span>
+                            </a>
+                            <a href="#residential-garage" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title"><i class="fas fa-car" style="color:#F87171;"></i> Automotive &amp; Fleet Bays <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Oil, solvent &amp; hot-tire resistant shop floors</span>
+                            </a>
+                            <a href="#industrial-flooring" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title"><i class="fas fa-plane" style="color:#F87171;"></i> Aviation &amp; Aerospace <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Skydrol-resistant high-reflectivity hangar coatings</span>
+                            </a>
+                            <a href="#residential-garage" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title"><i class="fas fa-warehouse" style="color:#F87171;"></i> Residential Garages &amp; Basements <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Full-broadcast polyaspartic flake &amp; moisture barriers</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mega Menu: Services -->
+                <div id="mega-services" class="ls-mega-menu">
+                    <div class="ls-mega-menu-inner">
+                        <div class="ls-mega-intro">
+                            <div>
+                                <span class="ls-eyebrow ls-eyebrow-light">Resinous Architecture</span>
+                                <h4>Engineered Flooring Systems</h4>
+                                <p>From ICRI CSP 2–5 planetary diamond grinding and structural spall reconstruction to multi-coat 100% solids epoxy, urethane mortar, and polyaspartic systems.</p>
+                            </div>
+                            <a href="#system-spec-finder" class="btn-ls-underline" style="color: #FFFFFF; border-color: #F87171;">
+                                <span>Interactive Spec Finder</span> <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        <div class="ls-mega-links-grid">
+                            <a href="#industrial-flooring" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title">100% Solids Industrial Epoxy <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">High-build multi-coat systems (10,500+ PSI)</span>
+                            </a>
+                            <a href="#commercial-specialty" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title">Cementitious Urethane Mortar <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">3/16&quot;–3/8&quot; thermal shock &amp; chemical slurries</span>
+                            </a>
+                            <a href="#commercial-retail" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title">Safety Quartz &amp; Integral Coving <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Seamless 4&quot;–6&quot; sanitary wall-to-floor transitions</span>
+                            </a>
+                            <a href="#residential-garage" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title">Polyaspartic Full-Flake Broadcast <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">100% UV-stable rapid-cure granite textures</span>
+                            </a>
+                            <a href="#commercial-retail" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title">Architectural Metallic Epoxy <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Three-dimensional pearlescent showroom finishes</span>
+                            </a>
+                            <a href="#concrete-coatings" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title">Hydrostatic Moisture Mitigation <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Deep-penetrating MVE vapor barrier primers</span>
+                            </a>
+                            <a href="#stain-seal-concrete" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title">Diamond Grinding &amp; Slab Repair <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">HEPA dustless profiling, joint rebuilding &amp; patching</span>
+                            </a>
+                            <a href="#stain-seal-concrete" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title">Polished, Stained &amp; Sealed Concrete <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Densified dust-proof architectural slabs</span>
+                            </a>
+                            <a href="#system-spec-finder" class="ls-mega-link-item">
+                                <span class="ls-mega-link-title">Interactive Spec Selector <i class="fas fa-arrow-right ls-arrow"></i></span>
+                                <span class="ls-mega-link-sub">Compare CSP profiles, mil thickness &amp; cure times</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
     <!-- Services Hero -->
-    <section style="background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-3.jpg') center/cover no-repeat; padding: 90px 20px; color: #FFFFFF; text-align: center;">
+    <section style="background: linear-gradient(rgba(15, 23, 42, 0.84), rgba(15, 23, 42, 0.92)), url('./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-3.jpg') center/cover no-repeat; padding: 90px 20px; color: #FFFFFF; text-align: center;">
         <div style="max-width: 850px; margin: 0 auto;">
-            <span style="color: #F87171; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;">Engineered Resinous Surface Systems</span>
-            <h1 style="font-size: 44px; margin: 12px 0 18px 0; color: #FFFFFF; font-weight: 900;">Industrial, Commercial & Residential Concrete Coatings</h1>
+            <span class="ls-eyebrow ls-eyebrow-light">Engineered Resinous Surface Systems</span>
+            <h1 style="font-size: 50px; margin: 10px 0 18px 0; color: #FFFFFF;">Industrial, Commercial &amp; Residential Concrete Coatings</h1>
             <p style="font-size: 18px; line-height: 1.6; color: #CBD5E1; max-width: 740px; margin: 0 auto 30px auto;">
                 From high-capacity manufacturing facilities and logistics warehouses to commercial showrooms and residential garages, LionStone Floors installs seamless resinous systems engineered for extreme compressive strength, chemical containment, and rapid return to service nationwide.
             </p>
             <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
                 <a href="#system-spec-finder" class="btn-ls-primary" style="font-size: 13px !important; padding: 10px 22px !important;"><i class="fas fa-sliders-h"></i> Interactive Spec Finder</a>
                 <a href="#industrial-flooring" class="btn-ls-secondary" style="font-size: 13px !important; padding: 10px 20px !important;">Industrial Systems</a>
-                <a href="#commercial-specialty" class="btn-ls-secondary" style="font-size: 13px !important; padding: 10px 20px !important;">Logistics & Cleanrooms</a>
+                <a href="#commercial-specialty" class="btn-ls-secondary" style="font-size: 13px !important; padding: 10px 20px !important;">Logistics &amp; Cleanrooms</a>
                 <a href="#commercial-retail" class="btn-ls-secondary" style="font-size: 13px !important; padding: 10px 20px !important;">Commercial Facilities</a>
-                <a href="#residential-garage" class="btn-ls-secondary" style="font-size: 13px !important; padding: 10px 20px !important;">Automotive & Garages</a>
+                <a href="#residential-garage" class="btn-ls-secondary" style="font-size: 13px !important; padding: 10px 20px !important;">Automotive &amp; Garages</a>
             </div>
         </div>
     </section>
 
+    <!-- Interactive Floor Assessment Callout Bar -->
+    <div class="ls-assessment-bar">
+        <div class="ls-assessment-bar-inner">
+            <div class="ls-assessment-bar-text">
+                <i class="fas fa-compass"></i>
+                <div>
+                    <h4>Not Sure Which Flooring System Is Right for Your Facility?</h4>
+                    <p>Answer 3 quick engineering questions about your environment, traffic load, and square footage to get an instant system specification.</p>
+                </div>
+            </div>
+            <button type="button" class="btn-ls-primary" data-open-floor-quiz style="background: #0F172A !important; border-color: #0F172A !important;">
+                <i class="fas fa-clipboard-check"></i> Take the 60-Second Floor Assessment &rarr;
+            </button>
+        </div>
+    </div>
+
     <!-- Interactive Engineering & System Specification Selector -->
     <section id="system-spec-finder" style="padding: 70px 20px; background: var(--ls-bg-light); border-bottom: 1px solid var(--ls-border);">
         <div class="container" style="max-width: 1150px; margin: 0 auto; text-align: center;">
-            <span style="color: var(--ls-accent); font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;">Technical Specification Guide</span>
-            <h2 style="font-size: 36px; margin: 10px 0 14px 0;">Interactive Flooring System Spec Finder</h2>
+            <span class="ls-eyebrow">Technical Specification Guide</span>
+            <h2 style="font-size: 42px; margin: 6px 0 14px 0;">Interactive Flooring System Spec Finder</h2>
             <p style="color: var(--ls-text-muted); max-width: 700px; margin: 0 auto;">
                 Select your facility environment or operating conditions below to inspect recommended surface preparation profiles, build thickness, compressive ratings, and resinous chemistry.
             </p>
@@ -232,14 +361,15 @@
     <section id="industrial-flooring" style="padding: 80px 20px; background: #FFFFFF; border-bottom: 1px solid var(--ls-border);">
         <div class="container" style="max-width: 1150px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 50px; align-items: center;">
             <div>
-                <span style="color: var(--ls-accent); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;">Heavy Duty Industrial</span>
-                <h2 style="font-size: 34px; margin: 8px 0 16px 0;">Industrial Resinous & Chemical-Resistant Systems</h2>
+                <span class="ls-eyebrow">Heavy Duty Industrial</span>
+                <h2 style="font-size: 38px; margin: 6px 0 12px 0;">Industrial Resinous &amp; Chemical-Resistant Systems</h2>
+                <hr class="ls-accent-hr" />
                 <p style="font-size: 16px; line-height: 1.7; color: var(--ls-text-muted); margin-bottom: 20px;">
                     Engineered for manufacturing plants, aircraft hangars, warehouses, automotive repair shops, and processing facilities requiring high compressive strength, forklift durability, and extreme chemical containment.
                 </p>
                 <ul style="list-style: none; padding: 0; margin: 0 0 25px 0; display: flex; flex-direction: column; gap: 10px; font-size: 15px; color: var(--ls-primary); font-weight: 600;">
-                    <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>Extreme Forklift & Heavy Load Rated:</strong> High Shore D hardness resisting point loading.</li>
-                    <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>Chemical & Solvent Resistance:</strong> Protects against harsh acids, oils, and alkalines.</li>
+                    <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>Extreme Forklift &amp; Heavy Load Rated:</strong> High Shore D hardness resisting point loading.</li>
+                    <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>Chemical &amp; Solvent Resistance:</strong> Protects against harsh acids, oils, and alkalines.</li>
                     <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>Non-Porous Seamless Finish:</strong> Eliminates bacteria traps and eases washdowns.</li>
                     <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>OSHA / USDA / FDA Compliant:</strong> Custom anti-slip grit levels tailored to workflow safety.</li>
                 </ul>
@@ -249,7 +379,7 @@
             </div>
 
             <div>
-                <img src="./assets/images/projects/warehouse-safety-walkway.jpg" alt="Industrial Logistics Safety Walkway System" style="width: 100%; border-radius: 16px; box-shadow: var(--ls-shadow-lg);" />
+                <img src="./assets/images/projects/warehouse-safety-walkway.jpg" alt="Industrial Logistics Safety Walkway System" style="width: 100%; border-radius: 6px; box-shadow: var(--ls-shadow-lg);" />
             </div>
         </div>
     </section>
@@ -258,13 +388,14 @@
     <section id="commercial-retail" style="padding: 80px 20px; background: #FFFFFF; border-bottom: 1px solid var(--ls-border);">
         <div class="container" style="max-width: 1150px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 50px; align-items: center;">
             <div>
-                <span style="color: var(--ls-accent); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;">Architectural Showrooms</span>
-                <h2 style="font-size: 34px; margin: 8px 0 16px 0;">Designer Commercial & Multi-Story Systems</h2>
+                <span class="ls-eyebrow">Architectural Showrooms</span>
+                <h2 style="font-size: 38px; margin: 6px 0 12px 0;">Designer Commercial &amp; Multi-Story Systems</h2>
+                <hr class="ls-accent-hr" />
                 <p style="font-size: 16px; line-height: 1.7; color: var(--ls-text-muted); margin-bottom: 20px;">
                     Make a stunning architectural statement. From commercial stair towers and public concourses to retail boutiques and restaurants, our seamless coatings deliver slip-resistant safety and mirror-like aesthetics.
                 </p>
                 <ul style="list-style: none; padding: 0; margin: 0 0 25px 0; display: flex; flex-direction: column; gap: 10px; font-size: 15px; color: var(--ls-primary); font-weight: 600;">
-                    <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>Multi-Tier Stair & Walkway Safety:</strong> OSHA-compliant safety yellow nosing stripes.</li>
+                    <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>Multi-Tier Stair &amp; Walkway Safety:</strong> OSHA-compliant safety yellow nosing stripes.</li>
                     <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>100% Seamless Integral Coving:</strong> Easy sanitation and wall protection.</li>
                     <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>High-Foot Traffic Durability:</strong> Resists scuffs, salt tracking, and moisture.</li>
                 </ul>
@@ -274,7 +405,7 @@
             </div>
 
             <div>
-                <img src="./assets/images/projects/commercial-stair-tower.jpg" alt="Commercial Multi-Tier Resinous Stair Tower" style="width: 100%; border-radius: 16px; box-shadow: var(--ls-shadow-lg);" />
+                <img src="./assets/images/projects/commercial-stair-tower.jpg" alt="Commercial Multi-Tier Resinous Stair Tower" style="width: 100%; border-radius: 6px; box-shadow: var(--ls-shadow-lg);" />
             </div>
         </div>
     </section>
@@ -283,14 +414,15 @@
     <section id="concrete-coatings" style="padding: 80px 20px; background: var(--ls-bg-light); border-bottom: 1px solid var(--ls-border);">
         <div class="container" style="max-width: 1150px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 50px; align-items: center;">
             <div style="order: 2;">
-                <span style="color: var(--ls-accent); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;">Moisture Mitigation</span>
-                <h2 style="font-size: 34px; margin: 8px 0 16px 0;">Basement Epoxy & Moisture Vapor Barrier</h2>
+                <span class="ls-eyebrow">Moisture Mitigation</span>
+                <h2 style="font-size: 38px; margin: 6px 0 12px 0;">Basement Epoxy &amp; Moisture Vapor Barrier</h2>
+                <hr class="ls-accent-hr" />
                 <p style="font-size: 16px; line-height: 1.7; color: var(--ls-text-muted); margin-bottom: 20px;">
                     Subterranean basements often suffer from hydrostatic pressure and damp concrete slabs. Our deep-penetrating epoxy moisture mitigation primer blocks ground moisture from pushing through the slab, preventing musty odors, mold, and coating delamination.
                 </p>
                 <ul style="list-style: none; padding: 0; margin: 0 0 25px 0; display: flex; flex-direction: column; gap: 10px; font-size: 15px; color: var(--ls-primary); font-weight: 600;">
                     <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>Blocks up to 25 lbs of Hydrostatic MVE:</strong> Eliminates dampness and efflorescence.</li>
-                    <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>Mold & Mildew Resistant:</strong> Creates a sanitary, easily cleaned living space.</li>
+                    <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>Mold &amp; Mildew Resistant:</strong> Creates a sanitary, easily cleaned living space.</li>
                     <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>Available in Solid Colors, Flake Blends, or Warm Earth Tones.</strong></li>
                 </ul>
                 <div style="display: flex; gap: 15px;">
@@ -299,7 +431,7 @@
             </div>
 
             <div style="order: 1;">
-                <img src="./assets/images/projects/luxury-cabinet-garage.jpg" alt="Finished Basement Moisture Barrier and Flake Epoxy Living Space" style="width: 100%; border-radius: 16px; box-shadow: var(--ls-shadow-lg);" />
+                <img src="./assets/images/projects/luxury-cabinet-garage.jpg" alt="Finished Basement Moisture Barrier and Flake Epoxy Living Space" style="width: 100%; border-radius: 6px; box-shadow: var(--ls-shadow-lg);" />
             </div>
         </div>
     </section>
@@ -308,8 +440,9 @@
     <section id="stain-seal-concrete" style="padding: 80px 20px; background: #FFFFFF; border-bottom: 1px solid var(--ls-border);">
         <div class="container" style="max-width: 1150px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 50px; align-items: center;">
             <div>
-                <span style="color: var(--ls-accent); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;">Architectural Natural Concrete</span>
-                <h2 style="font-size: 34px; margin: 8px 0 16px 0;">Stain & Seal / Commercial Stairs & Walkways</h2>
+                <span class="ls-eyebrow">Architectural Natural Concrete</span>
+                <h2 style="font-size: 38px; margin: 6px 0 12px 0;">Stain &amp; Seal / Commercial Stairs &amp; Walkways</h2>
+                <hr class="ls-accent-hr" />
                 <p style="font-size: 16px; line-height: 1.7; color: var(--ls-text-muted); margin-bottom: 20px;">
                     From decorative concrete dyes to heavy-duty slip-resistant exterior ramps and entrances, we restore old, damaged concrete with structural polymer mortaring and high-build architectural coats.
                 </p>
@@ -323,7 +456,7 @@
             </div>
 
             <div>
-                <img src="./assets/images/projects/stairs-after.jpg" alt="Architectural Commercial Resinous System" style="width: 100%; border-radius: 16px; box-shadow: var(--ls-shadow-lg);" />
+                <img src="./assets/images/projects/stairs-after.jpg" alt="Architectural Commercial Resinous System" style="width: 100%; border-radius: 6px; box-shadow: var(--ls-shadow-lg);" />
             </div>
         </div>
     </section>
@@ -332,13 +465,14 @@
     <section id="commercial-specialty" style="padding: 80px 20px; background: var(--ls-bg-light);">
         <div class="container" style="max-width: 1150px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 50px; align-items: center;">
             <div style="order: 2;">
-                <span style="color: #F87171; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;">Specialty Contracting</span>
-                <h2 style="font-size: 34px; margin: 8px 0 16px 0;">Commercial & Specialized Facility Flooring</h2>
+                <span class="ls-eyebrow">Specialty Contracting</span>
+                <h2 style="font-size: 38px; margin: 6px 0 12px 0;">Commercial &amp; Specialized Facility Flooring</h2>
+                <hr class="ls-accent-hr" />
                 <p style="font-size: 16px; line-height: 1.7; color: var(--ls-text-muted); margin-bottom: 20px;">
                     LionStone mobilizes heavy planetary grinding equipment and experienced technical crews for complex manufacturing plants, multi-tier industrial stairwells, logistics hubs, and commercial facilities nationwide.
                 </p>
                 <ul style="list-style: none; padding: 0; margin: 0 0 25px 0; display: flex; flex-direction: column; gap: 10px; font-size: 15px; color: var(--ls-primary); font-weight: 600;">
-                    <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>High-Traffic Stairways & Ramps:</strong> Non-slip textures with high-contrast safety visibility.</li>
+                    <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>High-Traffic Stairways &amp; Ramps:</strong> Non-slip textures with high-contrast safety visibility.</li>
                     <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>Nationwide Commercial Mobilization:</strong> Completed installations across the country with rapid turnkey crew dispatch.</li>
                     <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>Specialized Crew Dispatch:</strong> Turnkey staging and minimal downtime execution.</li>
                 </ul>
@@ -348,7 +482,7 @@
             </div>
 
             <div style="order: 1;">
-                <img src="./assets/images/projects/boston-logistics-bay.jpg" alt="Commercial Industrial Logistics Installation" style="width: 100%; border-radius: 16px; box-shadow: var(--ls-shadow-lg);" />
+                <img src="./assets/images/projects/boston-logistics-bay.jpg" alt="Commercial Industrial Logistics Installation" style="width: 100%; border-radius: 6px; box-shadow: var(--ls-shadow-lg);" />
             </div>
         </div>
     </section>
@@ -357,8 +491,9 @@
     <section id="residential-garage" style="padding: 80px 20px; background: #FFFFFF; border-bottom: 1px solid var(--ls-border);">
         <div class="container" style="max-width: 1150px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 50px; align-items: center;">
             <div>
-                <span style="color: var(--ls-accent); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;">High-Performance Automotive & Specialty Workshops</span>
-                <h2 style="font-size: 34px; margin: 8px 0 16px 0;">Automotive Bay & Garage Flake Systems</h2>
+                <span class="ls-eyebrow">High-Performance Automotive &amp; Specialty Workshops</span>
+                <h2 style="font-size: 38px; margin: 6px 0 12px 0;">Automotive Bay &amp; Garage Flake Systems</h2>
+                <hr class="ls-accent-hr" />
                 <p style="font-size: 16px; line-height: 1.7; color: var(--ls-text-muted); margin-bottom: 20px;">
                     Our commercial-grade polyaspartic and polyurea flake systems are engineered with extreme abrasion resistance for fleet vehicle maintenance bays, automotive workshops, and high-capacity garages. 100% UV-stable, chemical-proof, and designed to withstand severe point loading and hot tire pickup.
                 </p>
@@ -366,7 +501,7 @@
                     <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>Zero Hot-Tire Pickup:</strong> Engineered against high tire heat and point loading.</li>
                     <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>100% UV-Stable Polyaspartic:</strong> Will never amber or fade from solar exposure.</li>
                     <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>Rapid Return to Service:</strong> Minimal operational disruption for commercial bays, shops, and properties.</li>
-                    <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>Salt, Chemical & Fluid Proof:</strong> Resists road de-icers, motor oils, and solvents.</li>
+                    <li><i class="fas fa-check-circle" style="color: #10B981; margin-right: 8px;"></i> <strong>Salt, Chemical &amp; Fluid Proof:</strong> Resists road de-icers, motor oils, and solvents.</li>
                 </ul>
                 <div style="display: flex; gap: 15px;">
                     <a href="./contact.html?system=Full%20Flake%20Polyaspartic" class="btn-ls-primary">Request Automotive / Garage Quote</a>
@@ -374,7 +509,7 @@
             </div>
 
             <div>
-                <img src="./assets/images/projects/corvette-garage-showcase.jpg" alt="LionStone Automotive Bay and Garage Flake System" style="width: 100%; border-radius: 16px; box-shadow: var(--ls-shadow-lg);" />
+                <img src="./assets/images/projects/corvette-garage-showcase.jpg" alt="LionStone Automotive Bay and Garage Flake System" style="width: 100%; border-radius: 6px; box-shadow: var(--ls-shadow-lg);" />
             </div>
         </div>
     </section>
@@ -382,8 +517,8 @@
     <!-- Interactive Color Flake Swatch Showcase -->
     <section style="padding: 70px 20px; background: var(--ls-bg-light);">
         <div class="container" style="max-width: 1000px; margin: 0 auto; text-align: center;">
-            <span style="color: var(--ls-accent); font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;">Popular Color Collections</span>
-            <h2 style="font-size: 36px; margin: 10px 0 15px 0;">Explore Our Signature Flake & Texture Blends</h2>
+            <span class="ls-eyebrow">Popular Color Collections</span>
+            <h2 style="font-size: 40px; margin: 6px 0 15px 0;">Explore Our Signature Flake &amp; Texture Blends</h2>
             <p style="color: var(--ls-text-muted); max-width: 650px; margin: 0 auto 30px auto;">
                 Click on any color swatch below to preview our most popular architectural flake finishes installed in homes and businesses nationwide.
             </p>
@@ -410,7 +545,7 @@
                         <span>Granite Terrazzo</span>
                     </div>
 
-                    <div class="swatch-item" data-name="Saddle Tan & Driftwood" data-desc="Warm amber, sand, cream, and espresso flakes create a rich, inviting earth-tone surface ideal for basements and warm interior suites." data-img="./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-4.jpg">
+                    <div class="swatch-item" data-name="Saddle Tan &amp; Driftwood" data-desc="Warm amber, sand, cream, and espresso flakes create a rich, inviting earth-tone surface ideal for basements and warm interior suites." data-img="./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-4.jpg">
                         <div class="swatch-thumb" style="background-image: url('./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-4.jpg');"></div>
                         <span>Saddle Tan</span>
                     </div>
@@ -430,6 +565,27 @@
                         <span>Solid Slate</span>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pre-Footer Architectural Callout Banner -->
+    <section class="ls-prefooter-cta-section">
+        <div class="ls-prefooter-card">
+            <div class="ls-prefooter-text">
+                <span class="ls-eyebrow ls-eyebrow-light">Engineered Concrete Coatings</span>
+                <h2>Ready for Floors That Perform Under Any Load?</h2>
+                <p>
+                    Consult directly with LionStone's estimating and engineering team for an itemized turnkey specification tailored to your facility's traffic, chemical, and turnaround requirements.
+                </p>
+            </div>
+            <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+                <a href="./contact.html" class="btn-ls-primary" style="font-size: 15px !important; padding: 16px 32px !important;">
+                    Request a Quote <i class="fas fa-arrow-right"></i>
+                </a>
+                <button type="button" class="btn-ls-secondary" data-open-floor-quiz style="font-size: 14px !important; padding: 14px 24px !important;">
+                    <i class="fas fa-clipboard-check"></i> Take Floor Assessment
+                </button>
             </div>
         </div>
     </section>

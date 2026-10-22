@@ -127,6 +127,13 @@ document.addEventListener('DOMContentLoaded', function() {
             messageInput.value = `[Color / Texture Sample Inquiry]: ${sample}\nRequesting system specifications and formal project quote.`;
         }
     }
+
+    if (urlParams.has('sqft')) {
+        const sqftInput = document.getElementById('form-sqft-est') || document.getElementById('form-sqft-home') || document.querySelector('input[name="sqft"]');
+        if (sqftInput) {
+            sqftInput.value = urlParams.get('sqft');
+        }
+    }
 });
 
 // Handle FAQ or Financing Anchor links
