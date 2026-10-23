@@ -1852,3 +1852,20 @@ h1, h2, h3, h4, h5, h6 {
         font-size: 30px;
     }
 }
+
+
+/* ==========================================================================
+   Contact Page: Quote Form First (stacks on mobile)
+   ========================================================================== */
+@media (max-width: 900px) {
+    .ls-contact-grid {
+        grid-template-columns: 1fr !important;
+        gap: 28px !important;
+    }
+    .ls-contact-top-section {
+        padding-top: 20px !important;
+    }
+    .ls-contact-grid > div:first-child {
+        padding: 26px 20px 30px 20px !important;
+    }
+}

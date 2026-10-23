@@ -17,7 +17,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="./assets/css/61231a27586d20893b3de5b08d22e234.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="stylesheet" href="./assets/css/customstyle.css?v=4" />
+    <link rel="stylesheet" href="./assets/css/customstyle.css?v=5" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     
     <link rel="icon" href="./assets/images/1776804454505_LionStone-Logo-1.jpg" sizes="32x32" />
@@ -36,21 +36,9 @@
 <body class="contact-page wrapper-custom">
 <div class="website-wrapper">
 
-    <!-- Top Announcement Bar -->
+    <!-- Site Header -->
     <header class="whb-header whb-header_149418 whb-sticky-real">
         <div class="whb-main-header">
-            <div class="whb-row whb-top-bar">
-                <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 25px;">
-                    <div style="display: flex; align-items: center; gap: 15px;">
-                        <span>⭐ COMMERCIAL, RESIDENTIAL & INDUSTRIAL CONCRETE COATINGS • NATIONWIDE SERVICE</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 20px;">
-                        <a href="https://www.facebook.com/people/LionStone-Concrete-Coatings-LLC/61576802750273/" target="_blank" rel="noopener noreferrer" style="color: #93C5FD; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; font-size: 13px; font-weight: 600;"><i class="fab fa-facebook"></i> Facebook Updates</a>
-                        <a href="tel:8608050061"><i class="fas fa-phone-alt" style="color: #F87171;"></i> (860) 805-0061</a>
-                        <a href="./contact.html" style="background: var(--ls-accent); padding: 3px 12px; border-radius: 12px; font-size: 12px;">GET A QUOTE →</a>
-                    </div>
-                </div>
-            </div>
 
             <!-- Main Header -->
             <div class="whb-row whb-general-header">
@@ -179,41 +167,20 @@
     </header>
 
     <!-- Hero Section -->
-    <section style="background: linear-gradient(rgba(15, 23, 42, 0.84), rgba(15, 23, 42, 0.92)), url('./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-7.jpg') center/cover no-repeat; padding: 85px 20px; color: #FFFFFF; text-align: center;">
-        <div style="max-width: 850px; margin: 0 auto;">
-            <span class="ls-eyebrow ls-eyebrow-light">Direct Contractor Access</span>
-            <h1 style="font-size: 48px; margin: 8px 0 15px 0; color: #FFFFFF;">Request An On-Site Facility Assessment &amp; Quote</h1>
-            <p style="font-size: 18px; line-height: 1.6; color: #CBD5E1; max-width: 700px; margin: 0 auto;">
-                Engineering-grade resinous flooring for manufacturing facilities, warehouses, commercial properties, residential, and specialized installations.
-            </p>
-        </div>
-    </section>
-
-    <!-- "Not Sure Which Floor Is Right For You?" Assessment Banner -->
-    <section class="ls-assessment-bar">
-        <div class="ls-assessment-bar-inner">
-            <h3>Not Sure Which Flooring System Is Right for Your Facility?</h3>
-            <div class="ls-assessment-cta-group">
-                <span class="ls-time-tag">Takes Under 60 Seconds</span>
-                <a href="#" data-open-floor-quiz class="btn-ls-primary">
-                    Take the Floor Assessment <i class="fas fa-clipboard-check"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Main Contact & Booking Grid -->
-    <section style="padding: 80px 20px; background: #FFFFFF;">
-        <div class="container" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.3fr 1fr; gap: 50px;">
+    <!-- Main Contact & Booking Grid (placed first so the form is visible without scrolling) -->
+    <section id="quote-form" class="ls-contact-top-section" style="padding: 36px 20px 70px 20px; background: var(--ls-bg-light);">
+        <div class="container ls-contact-grid" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: start;">
             <!-- Form Column -->
-            <div style="background: #FFFFFF; padding: 40px; border-radius: 16px; box-shadow: var(--ls-shadow-lg); border: 1px solid var(--ls-border);">
+            <div style="background: #FFFFFF; padding: 34px 40px 40px 40px; border-radius: 8px; box-shadow: var(--ls-shadow-lg); border: 1px solid var(--ls-border); border-top: 4px solid var(--ls-accent);">
                 <div id="form-success-banner" style="display: none; margin-bottom: 25px; padding: 18px; background-color: #DCFCE7; border: 1px solid #86EFAC; border-radius: 8px; color: #166534; font-size: 15px;">
                     <strong>Thank you!</strong> Your request has been successfully submitted. A project specialist will call you shortly.
                 </div>
 
-                <h3 style="font-size: 26px; color: var(--ls-primary); margin-bottom: 8px;">Request Facility Assessment & Quote</h3>
-                <p style="color: var(--ls-text-muted); font-size: 14px; margin-bottom: 25px;">
+                <span class="ls-eyebrow">Direct Contractor Access</span>
+                <h1 style="font-size: 36px; color: var(--ls-primary); margin: 4px 0 8px 0;">Request Facility Assessment &amp; Quote</h1>
+                <p style="color: var(--ls-text-muted); font-size: 14px; margin: 0 0 24px 0;">
                     Submit your facility or residential specifications below.
+                </p>
 
                 <form action="https://api.web3forms.com/submit" method="POST" class="native-estimate-form">
                     <input type="hidden" name="access_key" value="b1cdf58f-0e10-461e-81ea-d7477937009e" />
@@ -332,6 +299,19 @@
                 <div style="border-radius: 16px; overflow: hidden; height: 260px; box-shadow: var(--ls-shadow-sm); border: 1px solid var(--ls-border); background: #1E293B;">
                     <iframe loading="lazy" src="https://maps.google.com/maps?q=12%20Bartlett%20Court%2C%20Wilbraham%20MA%2001095&t=m&z=11&output=embed&iwloc=near" title="LionStone Concrete Coatings Wilbraham MA" style="width: 100%; height: 100%; border: none; display: block;"></iframe>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- "Not Sure Which Floor Is Right For You?" Assessment Banner -->
+    <section class="ls-assessment-bar">
+        <div class="ls-assessment-bar-inner">
+            <h3>Not Sure Which Flooring System Is Right for Your Facility?</h3>
+            <div class="ls-assessment-cta-group">
+                <span class="ls-time-tag">Takes Under 60 Seconds</span>
+                <a href="#" data-open-floor-quiz class="btn-ls-primary">
+                    Take the Floor Assessment <i class="fas fa-clipboard-check"></i>
+                </a>
             </div>
         </div>
     </section>
