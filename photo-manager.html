@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LionStone Photo &amp; Caption Manager</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="stylesheet" href="./assets/css/customstyle.css?v=6" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="icon" href="./assets/images/1776804454505_LionStone-Logo-1.jpg" sizes="32x32" />
+    <style>
+        body { background: #F1F5F9; margin: 0; font-family: var(--ls-font-sans); color: #0F172A; }
+        .pm-topbar { position: sticky; top: 0; z-index: 50; background: #0B0F19; color: #fff; padding: 14px 24px; border-bottom: 3px solid var(--ls-accent); box-shadow: 0 8px 25px rgba(0,0,0,0.25); }
+        .pm-topbar-inner { max-width: 1320px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; }
+        .pm-brand { display: flex; align-items: center; gap: 14px; }
+        .pm-brand img { height: 42px; border-radius: 4px; }
+        .pm-brand h1 { color: #fff; font-size: 24px; margin: 0; letter-spacing: 0.04em; }
+        .pm-brand p { color: #94A3B8; font-size: 12px; margin: 2px 0 0 0; }
+        .pm-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .pm-count-badge { background: rgba(206,3,40,0.2); border: 1px solid var(--ls-accent); color: #FCA5A5; padding: 6px 12px; border-radius: 4px; font-weight: 700; font-size: 13px; }
+        .pm-btn { border: none; border-radius: 4px; padding: 10px 16px; font-family: var(--ls-font-display); font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .pm-btn-red { background: var(--ls-accent); color: #fff; }
+        .pm-btn-red:hover { background: #A70220; }
+        .pm-btn-dark { background: #1E293B; color: #fff; border: 1px solid #334155; }
+        .pm-btn-dark:hover { background: #334155; }
+        .pm-btn-ghost { background: transparent; color: #CBD5E1; border: 1px solid rgba(255,255,255,0.2); font-size: 13px; padding: 8px 12px; }
+        .pm-btn-ghost:hover { border-color: #fff; color: #fff; }
+
+        .pm-container { max-width: 1320px; margin: 24px auto 60px auto; padding: 0 20px; }
+        .pm-help-banner { background: #FFFFFF; border: 1px solid #CBD5E1; border-left: 4px solid var(--ls-accent); padding: 16px 20px; border-radius: 6px; margin-bottom: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px; font-size: 14px; }
+        .pm-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+        .pm-tab { background: #fff; border: 1px solid #CBD5E1; padding: 10px 18px; border-radius: 4px; font-family: var(--ls-font-display); font-size: 16px; font-weight: 700; text-transform: uppercase; cursor: pointer; color: #1E293B; }
+        .pm-tab.active { background: #0F172A; color: #fff; border-color: #0F172A; border-bottom: 3px solid var(--ls-accent); }
+
+        .pm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 22px; }
+        .pm-card { background: #fff; border: 1px solid #CBD5E1; border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 2px 8px rgba(15,23,42,0.06); position: relative; transition: border-color 0.2s; }
+        .pm-card.pm-modified { border: 2px solid #D97706; }
+        .pm-card.pm-removed { opacity: 0.62; border: 2px solid #DC2626; background: #FEF2F2; }
+        .pm-card-head { background: #F8FAFC; padding: 10px 14px; border-bottom: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 700; text-transform: uppercase; color: #475569; }
+        .pm-page-pill { background: #0F172A; color: #fff; padding: 2px 8px; border-radius: 3px; font-size: 11px; }
+        .pm-img-wrap { height: 220px; background: #0F172A; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .pm-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+        .pm-card.pm-fit-contain .pm-img-wrap img { object-fit: contain; }
+        .pm-status-ribbon { position: absolute; top: 10px; right: 10px; padding: 4px 10px; border-radius: 3px; font-size: 11px; font-weight: 800; text-transform: uppercase; display: none; }
+        .pm-card.pm-modified .pm-status-ribbon { display: block; background: #D97706; color: #fff; }
+        .pm-card.pm-removed .pm-status-ribbon { display: block; background: #DC2626; color: #fff; }
+        .pm-fit-btn { position: absolute; bottom: 8px; right: 8px; background: rgba(15,23,42,0.85); color: #fff; border: 1px solid rgba(255,255,255,0.25); font-size: 11px; padding: 4px 8px; border-radius: 3px; cursor: pointer; }
+
+        .pm-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+        .pm-path { font-family: monospace; font-size: 11.5px; color: #64748B; background: #F8FAFC; padding: 5px 8px; border-radius: 4px; border: 1px solid #E2E8F0; word-break: break-all; }
+        .pm-field label { display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; color: #475569; margin-bottom: 3px; }
+        .pm-field input, .pm-field textarea { width: 100%; padding: 8px 10px; border: 1px solid #CBD5E1; border-radius: 4px; font-size: 13px; font-family: var(--ls-font-sans); box-sizing: border-box; }
+        .pm-card-footer { padding: 12px 16px; background: #F8FAFC; border-top: 1px solid #E2E8F0; display: flex; gap: 8px; flex-wrap: wrap; }
+        .pm-card-btn { flex: 1; padding: 9px 10px; font-size: 12px; font-weight: 700; text-transform: uppercase; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid #CBD5E1; background: #fff; color: #0F172A; }
+        .pm-card-btn-swap { background: #0F172A; color: #fff; border-color: #0F172A; }
+        .pm-card-btn-swap:hover { background: var(--ls-accent); border-color: var(--ls-accent); }
+        .pm-card-btn-remove { color: #DC2626; border-color: #FECACA; }
+        .pm-card-btn-remove:hover { background: #DC2626; color: #fff; }
+
+        /* Picker & Output Modals */
+        .pm-modal-backdrop { position: fixed; inset: 0; background: rgba(9,13,22,0.82); backdrop-filter: blur(5px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px; }
+        .pm-modal-backdrop.active { display: flex; }
+        .pm-modal { background: #fff; width: 100%; max-width: 1080px; max-height: 90vh; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 25px 60px rgba(0,0,0,0.45); }
+        .pm-modal-head { background: #0F172A; color: #fff; padding: 16px 22px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--ls-accent); }
+        .pm-modal-head h3 { color: #fff; margin: 0; font-size: 22px; }
+        .pm-picker-controls { padding: 14px 22px; background: #F8FAFC; border-bottom: 1px solid #E2E8F0; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+        .pm-picker-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+        .pm-picker-tab { padding: 7px 12px; font-size: 12px; font-weight: 700; border: 1px solid #CBD5E1; background: #fff; border-radius: 4px; cursor: pointer; }
+        .pm-picker-tab.active { background: var(--ls-accent); color: #fff; border-color: var(--ls-accent); }
+        .pm-picker-grid { padding: 20px; overflow-y: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(195px, 1fr)); gap: 14px; }
+        .pm-pick-item { border: 2px solid #E2E8F0; border-radius: 6px; overflow: hidden; cursor: pointer; transition: all 0.15s; background: #fff; display: flex; flex-direction: column; }
+        .pm-pick-item:hover { border-color: var(--ls-accent); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.12); }
+        .pm-pick-item img { width: 100%; height: 140px; object-fit: cover; background: #0F172A; }
+        .pm-pick-label { padding: 7px 9px; font-size: 11px; font-weight: 600; color: #1E293B; word-break: break-word; }
+        .pm-toast { position: fixed; bottom: 24px; right: 24px; background: #0F172A; color: #fff; border-left: 4px solid #10B981; padding: 14px 20px; border-radius: 6px; box-shadow: 0 12px 30px rgba(0,0,0,0.3); z-index: 2000; display: none; font-size: 14px; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<div class="pm-topbar">
+    <div class="pm-topbar-inner">
+        <div class="pm-brand">
+            <img src="./assets/images/1776804454505_LionStone-Logo.jpg" alt="LionStone" />
+            <div>
+                <h1>Website Photo &amp; Caption Manager</h1>
+                <p>Inspect every photo + caption side-by-side, swap mismatched photos, edit wording, or flag cards for removal.</p>
+            </div>
+        </div>
+        <div class="pm-actions">
+            <span class="pm-count-badge" id="pm-mod-count">0 Changes Queued</span>
+            <button type="button" class="pm-btn pm-btn-red" id="pm-export-btn">
+                <i class="fas fa-copy"></i> Copy Changes for Antigravity
+            </button>
+            <button type="button" class="pm-btn pm-btn-dark" id="pm-save-local-btn" title="Works when running locally on http://localhost:3000">
+                <i class="fas fa-save"></i> Save Locally
+            </button>
+            <button type="button" class="pm-btn pm-btn-ghost" id="pm-reset-btn">Reset All</button>
+            <a href="./index.html" class="pm-btn pm-btn-ghost" style="text-decoration:none;"><i class="fas fa-arrow-left"></i> Back to Site</a>
+        </div>
+    </div>
+</div>
+
+<div class="pm-container">
+    <div class="pm-help-banner">
+        <div>
+            <strong>How to use:</strong> Click <strong>Swap Photo</strong> on any card to choose from all vetted project photos (or browse local raw photos / upload a new file from your computer), edit the headline or caption directly if the description doesn’t fit, or click <strong>Hide / Remove</strong>. When finished, click <strong>Copy Changes for Antigravity</strong> and paste it into the Antigravity chat to publish straight to <code>lionstonefloors.com</code>.
+        </div>
+        <div style="font-size:12px; color:#64748B;">
+            <span id="pm-mode-indicator">Checking mode...</span>
+        </div>
+    </div>
+
+    <div class="pm-tabs" id="pm-page-tabs">
+        <button type="button" class="pm-tab active" data-page="ALL">All Photo Slots</button>
+        <button type="button" class="pm-tab" data-page="Home Page">Home Page</button>
+        <button type="button" class="pm-tab" data-page="Services Page">Services Page</button>
+        <button type="button" class="pm-tab" data-page="Gallery Page">Gallery (16 Cards)</button>
+        <button type="button" class="pm-tab" data-page="About Page">About Page</button>
+        <button type="button" class="pm-tab" data-page="MODIFIED">Modified Only (<span id="pm-tab-mod-num">0</span>)</button>
+    </div>
+
+    <div class="pm-grid" id="pm-slots-grid"></div>
+</div>
+
+<!-- Visual Photo Library Picker Modal -->
+<div class="pm-modal-backdrop" id="pm-picker-modal">
+    <div class="pm-modal">
+        <div class="pm-modal-head">
+            <div>
+                <h3 id="pm-picker-title">Choose Replacement Photo</h3>
+                <span style="font-size:12px; color:#94A3B8;" id="pm-picker-subtitle">Select any photo below or pick an image file from your computer</span>
+            </div>
+            <button type="button" class="pm-btn pm-btn-ghost" id="pm-picker-close"><i class="fas fa-times"></i> Close</button>
+        </div>
+        <div class="pm-picker-controls">
+            <div class="pm-picker-tabs">
+                <button type="button" class="pm-picker-tab active" data-lib-group="projects">Vetted Project Photos (<span id="lib-cnt-projects">0</span>)</button>
+                <button type="button" class="pm-picker-tab" data-lib-group="assets">Additional Flooring Photos (<span id="lib-cnt-assets">0</span>)</button>
+                <button type="button" class="pm-picker-tab" data-lib-group="onedrive">Raw OneDrive Archive — Local PC Only (<span id="lib-cnt-onedrive">0</span>)</button>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                <input type="text" id="pm-picker-search" placeholder="Search filename..." style="padding:7px 11px; border:1px solid #CBD5E1; border-radius:4px; font-size:13px;" />
+                <label class="pm-btn pm-btn-dark" style="font-size:12px; padding:7px 12px; cursor:pointer; margin:0;">
+                    <i class="fas fa-upload"></i> Upload From PC
+                    <input type="file" id="pm-file-upload" accept="image/*" style="display:none;" />
+                </label>
+            </div>
+        </div>
+        <div id="pm-onedrive-note" style="display:none; background:#FFFBEB; border-bottom:1px solid #FDE68A; padding:10px 22px; font-size:12.5px; color:#92400E;">
+            <strong>Note:</strong> Raw <code>OneDrive_1_9-30-2026</code> archive photos appear when opening <code>photo-manager.html</code> locally on your computer (<code>file://</code> or <code>localhost:3000</code>). If viewing online and thumbnails are blank, open the file on your computer or use <strong>Upload From PC</strong>.
+        </div>
+        <div class="pm-picker-grid" id="pm-picker-grid"></div>
+    </div>
+</div>
+
+<!-- Export Summary Modal -->
+<div class="pm-modal-backdrop" id="pm-export-modal">
+    <div class="pm-modal" style="max-width: 780px;">
+        <div class="pm-modal-head">
+            <h3>Your Requested Photo &amp; Caption Updates</h3>
+            <button type="button" class="pm-btn pm-btn-ghost" id="pm-export-close"><i class="fas fa-times"></i> Close</button>
+        </div>
+        <div style="padding: 20px; overflow-y: auto;">
+            <p style="font-size:14px; color:#475569; margin-top:0;">Copy the summary below and paste it into the Antigravity chat to apply all changes live to <code>lionstonefloors.com</code>:</p>
+            <textarea id="pm-export-text" rows="14" readonly style="width:100%; font-family:monospace; font-size:12.5px; padding:12px; border:1px solid #CBD5E1; border-radius:6px; box-sizing:border-box; background:#F8FAFC;"></textarea>
+            <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:14px;">
+                <button type="button" class="pm-btn pm-btn-red" id="pm-copy-textarea-btn"><i class="fas fa-copy"></i> Copy to Clipboard</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="pm-toast" id="pm-toast"></div>
+
+<script>
+const PHOTO_SLOTS = [
+  {
+    "id": "home-service-1",
+    "page": "Home Page",
+    "file": "index.html",
+    "section": "Core Services Card #1",
+    "src": "./assets/images/projects/warehouse-safety-walkway.jpg",
+    "title": "Industrial Epoxy & Urethane",
+    "caption": "We assess your facility\u2019s operational demands to engineer 100% solids cycloaliphatic epoxy, chemical-resistant novolac, or thermal-shock cementitious urethane mortar systems."
+  },
+  {
+    "id": "home-service-2",
+    "page": "Home Page",
+    "file": "index.html",
+    "section": "Core Services Card #2",
+    "src": "./assets/images/projects/commercial-stair-tower.jpg",
+    "title": "Commercial & Safety Quartz",
+    "caption": "Durable, hygienic, and slip-resistant seamless flooring for commercial stair towers, healthcare corridors, laboratories, commercial kitchens, and retail showrooms."
+  },
+  {
+    "id": "home-service-3",
+    "page": "Home Page",
+    "file": "index.html",
+    "section": "Core Services Card #3",
+    "src": "./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-3.jpg",
+    "title": "Surface Prep & Polishing",
+    "caption": "We handle all surface preparation in-house using heavy 3-phase planetary diamond grinders (ICRI CSP 2\u20135), structural spall rebuilding, moisture vapor barriers, and concrete densifying."
+  },
+  {
+    "id": "home-service-4",
+    "page": "Home Page",
+    "file": "index.html",
+    "section": "Core Services Card #4",
+    "src": "./assets/images/projects/wilbraham-stemwall-garage.jpg",
+    "title": "Polyaspartic & Flake Systems",
+    "caption": "Rapid-curing, UV-stable polyaspartic and full-refusal flake broadcast coatings built for automotive service bays, fleet maintenance shops, and luxury residential garages."
+  },
+  {
+    "id": "home-ba-1-before",
+    "page": "Home Page",
+    "file": "index.html",
+    "section": "Before/After Tab 1 \u2014 Commercial Stairs (BEFORE)",
+    "src": "./assets/images/projects/stairs-before.jpg",
+    "title": "Commercial Entrance Staircase (Before)",
+    "caption": "Cracked Concrete \u2014 before LionStone tread reconstruction and safety quartz installation."
+  },
+  {
+    "id": "home-ba-1-after",
+    "page": "Home Page",
+    "file": "index.html",
+    "section": "Before/After Tab 1 \u2014 Commercial Stairs (AFTER)",
+    "src": "./assets/images/projects/stairs-after.jpg",
+    "title": "Commercial Entrance Staircase (After)",
+    "caption": "Reconstructed cracked concrete with anti-slip high-build quartz and OSHA-compliant safety yellow nosing."
+  },
+  {
+    "id": "home-ba-2-before",
+    "page": "Home Page",
+    "file": "index.html",
+    "section": "Before/After Tab 2 \u2014 Commercial Ramp (BEFORE)",
+    "src": "./assets/images/projects/ramp-before.jpg",
+    "title": "Exterior Commercial Entrance Ramp (Before)",
+    "caption": "Spalled Concrete \u2014 before polymer patching and exterior non-slip coating."
+  },
+  {
+    "id": "home-ba-2-after",
+    "page": "Home Page",
+    "file": "index.html",
+    "section": "Before/After Tab 2 \u2014 Commercial Ramp (AFTER)",
+    "src": "./assets/images/projects/ramp-after.jpg",
+    "title": "Exterior Commercial Entrance Ramp (After)",
+    "caption": "Restored spalled, pitting concrete into an architectural, non-slip textured finish built for extreme freeze-thaw cycles."
+  },
+  {
+    "id": "home-ba-3-before",
+    "page": "Home Page",
+    "file": "index.html",
+    "section": "Before/After Tab 3 \u2014 Service & Utility Bay (BEFORE)",
+    "src": "./assets/images/projects/garage-split-before.jpg",
+    "title": "Service & Utility Bay (Before)",
+    "caption": "Worn & Stained Slab \u2014 before diamond grinding and polyaspartic flake broadcast."
+  },
+  {
+    "id": "home-ba-3-after",
+    "page": "Home Page",
+    "file": "index.html",
+    "section": "Before/After Tab 3 \u2014 Service & Utility Bay (AFTER)",
+    "src": "./assets/images/projects/garage-split-after.jpg",
+    "title": "Service & Utility Bay (After)",
+    "caption": "Mechanical diamond grinding and crack remediation followed by a seamless, chemical-resistant polyaspartic flake broadcast."
+  },
+  {
+    "id": "home-ba-4-before",
+    "page": "Home Page",
+    "file": "index.html",
+    "section": "Before/After Tab 4 \u2014 Residential Garage (BEFORE)",
+    "src": "./assets/images/projects/garage-prep-before.jpg",
+    "title": "High-End Residential Garage (Before)",
+    "caption": "Diamond Ground Slab \u2014 mechanical CSP prep stage."
+  },
+  {
+    "id": "home-ba-4-after",
+    "page": "Home Page",
+    "file": "index.html",
+    "section": "Before/After Tab 4 \u2014 Residential Garage (AFTER)",
+    "src": "./assets/images/projects/garage-cure-after.jpg",
+    "title": "High-End Residential Garage (After)",
+    "caption": "Industrial planetary diamond grind followed by 100% solids epoxy basecoat and UV-stable polyaspartic clear topcoat."
+  },
+  {
+    "id": "home-case-1",
+    "page": "Home Page",
+    "file": "index.html",
+    "section": "Case Study #1 (Warehousing & Logistics)",
+    "src": "./assets/images/projects/warehouse-safety-walkway.jpg",
+    "title": "Transforming High-Traffic Logistics Bays with OSHA-Compliant Resinous Walkways",
+    "caption": "Eliminated concrete dusting and pedestrian traffic hazards in an active distribution facility through HEPA planetary grinding and high-build safety green & yellow demarcation."
+  },
+  {
+    "id": "home-case-2",
+    "page": "Home Page",
+    "file": "index.html",
+    "section": "Case Study #2 (Commercial Infrastructure)",
+    "src": "./assets/images/projects/commercial-stair-tower.jpg",
+    "title": "Rebuilding Deteriorated Multi-Story Stair Towers into Seamless Safety Quartz",
+    "caption": "Restored spalled, cracking concrete stair treads and landings across a multi-tier commercial stair tower with structural polymer mortaring, decorative quartz broadcast, and high-visibility nosing."
+  },
+  {
+    "id": "home-case-3",
+    "page": "Home Page",
+    "file": "index.html",
+    "section": "Case Study #3 (Cleanroom & Sanitary)",
+    "src": "./assets/images/projects/cleanroom-covebase.jpg",
+    "title": "Engineering Zero-Seam Wall-to-Floor Containment with Integral Radius Cove Base",
+    "caption": "Installed a monolithic, bacteria-impervious resinous floor and hand-troweled vertical cove base transition to prevent moisture and chemical intrusion at wall perimeters."
+  },
+  {
+    "id": "services-sec-1",
+    "page": "Services Page",
+    "file": "services.html",
+    "section": "Section 1: Industrial Resinous Systems",
+    "src": "./assets/images/projects/warehouse-safety-walkway.jpg",
+    "title": "Industrial Resinous & Chemical-Resistant Systems",
+    "caption": "Engineered for manufacturing plants, aircraft hangars, warehouses, automotive repair shops, and processing facilities."
+  },
+  {
+    "id": "services-sec-2",
+    "page": "Services Page",
+    "file": "services.html",
+    "section": "Section 2: Designer Commercial & Multi-Story",
+    "src": "./assets/images/projects/commercial-stair-tower.jpg",
+    "title": "Designer Commercial & Multi-Story Systems",
+    "caption": "Commercial stair towers, public concourses, retail boutiques, and restaurants."
+  },
+  {
+    "id": "services-sec-3",
+    "page": "Services Page",
+    "file": "services.html",
+    "section": "Section 3: Basement Epoxy & Moisture Control",
+    "src": "./assets/images/projects/luxury-cabinet-garage.jpg",
+    "title": "Basement Epoxy & Moisture Vapor Barrier",
+    "caption": "Deep-penetrating epoxy moisture mitigation primer blocking up to 25 lbs of hydrostatic MVE."
+  },
+  {
+    "id": "services-sec-4",
+    "page": "Services Page",
+    "file": "services.html",
+    "section": "Section 4: Stain & Seal / Commercial Stairs",
+    "src": "./assets/images/projects/stairs-after.jpg",
+    "title": "Stain & Seal / Commercial Stairs & Walkways",
+    "caption": "Decorative concrete dyes and slip-resistant exterior ramps and entrances."
+  },
+  {
+    "id": "services-sec-5",
+    "page": "Services Page",
+    "file": "services.html",
+    "section": "Section 5: Commercial & Specialized Facility",
+    "src": "./assets/images/projects/boston-logistics-bay.jpg",
+    "title": "Commercial & Specialized Facility Flooring",
+    "caption": "Heavy planetary grinding and experienced crews for complex manufacturing plants, industrial stairwells, and logistics hubs."
+  },
+  {
+    "id": "services-sec-6",
+    "page": "Services Page",
+    "file": "services.html",
+    "section": "Section 6: Automotive Bays & Garages",
+    "src": "./assets/images/projects/corvette-garage-showcase.jpg",
+    "title": "Automotive Bay & Garage Flake Systems",
+    "caption": "Commercial-grade polyaspartic and polyurea flake systems for fleet maintenance bays, auto shops, and high-capacity garages."
+  },
+  {
+    "id": "services-swatch-1",
+    "page": "Services Page",
+    "file": "services.html",
+    "section": "Color Swatch #1 \u2014 Granite Terrazzo",
+    "src": "./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-7.jpg",
+    "title": "Granite Terrazzo Blend",
+    "caption": "Blend of slate grey, charcoal, crisp white, and subtle black flakes."
+  },
+  {
+    "id": "services-swatch-2",
+    "page": "Services Page",
+    "file": "services.html",
+    "section": "Color Swatch #2 \u2014 Saddle Tan",
+    "src": "./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-4.jpg",
+    "title": "Saddle Tan & Driftwood",
+    "caption": "Warm amber, sand, cream, and espresso flakes for basements and interior suites."
+  },
+  {
+    "id": "services-swatch-3",
+    "page": "Services Page",
+    "file": "services.html",
+    "section": "Color Swatch #3 \u2014 Obsidian Metallic",
+    "src": "./assets/images/Residential-or-Commerical-Flooring.jpg",
+    "title": "Obsidian Metallic Marble",
+    "caption": "Deep multi-dimensional black, titanium, and pearlescent showroom resin."
+  },
+  {
+    "id": "services-swatch-4",
+    "page": "Services Page",
+    "file": "services.html",
+    "section": "Color Swatch #4 \u2014 Cobalt Blue",
+    "src": "./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-2-600x450.jpg",
+    "title": "Cobalt Sparkle Commercial",
+    "caption": "Navy, slate blue, and grey blend for bright retail and automotive spaces."
+  },
+  {
+    "id": "services-swatch-5",
+    "page": "Services Page",
+    "file": "services.html",
+    "section": "Color Swatch #5 \u2014 Solid Slate",
+    "src": "./assets/images/High-Chemical-restance-flooring-systems-450x600.jpg",
+    "title": "Industrial Solid Slate",
+    "caption": "Heavy-build solid grey high-performance resin coat with optional anti-slip texturing."
+  },
+  {
+    "id": "gallery-1",
+    "page": "Gallery Page",
+    "file": "reviews.html",
+    "section": "Gallery Item #1 (Garage)",
+    "src": "./assets/images/projects/corvette-garage-showcase.jpg",
+    "title": "Classic Corvette Showroom Garage",
+    "caption": "Showroom Garage \u2022 Granite Flake & Mirror Clearcoat"
+  },
+  {
+    "id": "gallery-2",
+    "page": "Gallery Page",
+    "file": "reviews.html",
+    "section": "Gallery Item #2 (Commercial)",
+    "src": "./assets/images/projects/stairs-after.jpg",
+    "title": "Commercial Safety Stairwell",
+    "caption": "High-Traction Quartz & Safety Nosing"
+  },
+  {
+    "id": "gallery-3",
+    "page": "Gallery Page",
+    "file": "reviews.html",
+    "section": "Gallery Item #3 (Industrial / Specialty)",
+    "src": "./assets/images/projects/cleanroom-covebase.jpg",
+    "title": "Specialized Resinous Cove Base",
+    "caption": "Sanitary Cleanroom \u2022 Seamless Resinous"
+  },
+  {
+    "id": "gallery-4",
+    "page": "Gallery Page",
+    "file": "reviews.html",
+    "section": "Gallery Item #4 (Industrial)",
+    "src": "./assets/images/projects/warehouse-safety-walkway.jpg",
+    "title": "Industrial Logistics Safety Walkway",
+    "caption": "Logistics Hub \u2022 Safety Demarcated System"
+  },
+  {
+    "id": "gallery-5",
+    "page": "Gallery Page",
+    "file": "reviews.html",
+    "section": "Gallery Item #5 (Garage)",
+    "src": "./assets/images/projects/wilbraham-stemwall-garage.jpg",
+    "title": "Executive Garage with Vertical Stem Walls",
+    "caption": "Finished Garage \u2022 Moisture-Locked Flake System"
+  },
+  {
+    "id": "gallery-6",
+    "page": "Gallery Page",
+    "file": "reviews.html",
+    "section": "Gallery Item #6 (Commercial)",
+    "src": "./assets/images/projects/ramp-after.jpg",
+    "title": "Commercial Exterior Entrance Ramp",
+    "caption": "Exterior Ramp \u2022 Weather-Resistant Textured System"
+  },
+  {
+    "id": "gallery-7",
+    "page": "Gallery Page",
+    "file": "reviews.html",
+    "section": "Gallery Item #7 (Commercial)",
+    "src": "./assets/images/projects/commercial-stair-tower.jpg",
+    "title": "Multi-Story Commercial Stair Tower",
+    "caption": "Industrial Stair Tower \u2022 Heavy-Duty Quartz System"
+  },
+  {
+    "id": "gallery-8",
+    "page": "Gallery Page",
+    "file": "reviews.html",
+    "section": "Gallery Item #8 (Garage)",
+    "src": "./assets/images/projects/luxury-cabinet-garage.jpg",
+    "title": "Saddle Tan Garage & Coated Steps",
+    "caption": "Executive Workshop \u2022 Custom Cabinetry Coordination"
+  },
+  {
+    "id": "gallery-9",
+    "page": "Gallery Page",
+    "file": "reviews.html",
+    "section": "Gallery Item #9 (Commercial / Industrial)",
+    "src": "./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-8.jpg",
+    "title": "High-Gloss Commercial Production Facility",
+    "caption": "Cleanroom & Tech Facility \u2022 Seamless Self-Leveling Epoxy"
+  },
+  {
+    "id": "gallery-10",
+    "page": "Gallery Page",
+    "file": "reviews.html",
+    "section": "Gallery Item #10 (Industrial)",
+    "src": "./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-3.jpg",
+    "title": "Large-Scale Distribution & Logistics Center",
+    "caption": "Industrial Warehouse \u2022 High-Build Resinous System"
+  },
+  {
+    "id": "gallery-11",
+    "page": "Gallery Page",
+    "file": "reviews.html",
+    "section": "Gallery Item #11 (Industrial)",
+    "src": "./assets/images/Ashford-Concrete-Densifier-Application_-600x338.jpg",
+    "title": "Warehouse Racking & Safety Line Striping",
+    "caption": "Logistics Facility \u2022 Densified Slab & High-Visibility Demarcation"
+  },
+  {
+    "id": "gallery-12",
+    "page": "Gallery Page",
+    "file": "reviews.html",
+    "section": "Gallery Item #12 (Garage)",
+    "src": "./assets/images/projects/macro-flake-texture.jpg",
+    "title": "Ultra-HD Polyaspartic Flake Texture",
+    "caption": "Full Refusal Broadcast \u2022 Chemical-Resistant Topcoat"
+  },
+  {
+    "id": "gallery-13",
+    "page": "Gallery Page",
+    "file": "reviews.html",
+    "section": "Gallery Item #13 (Commercial)",
+    "src": "./assets/images/projects/boston-logistics-bay.jpg",
+    "title": "High-Traffic Commercial Logistics Bay",
+    "caption": "Logistics Hub \u2022 High-Abrasion Resinous Coat"
+  },
+  {
+    "id": "gallery-14",
+    "page": "Gallery Page",
+    "file": "reviews.html",
+    "section": "Gallery Item #14 (Industrial / Specialty)",
+    "src": "./assets/images/projects/vermont-installation.jpg",
+    "title": "Cold-Climate Resinous Facility",
+    "caption": "Cold Storage \u2022 Thermal-Shock Resistant Floor"
+  },
+  {
+    "id": "gallery-15",
+    "page": "Gallery Page",
+    "file": "reviews.html",
+    "section": "Gallery Item #15 (Commercial / Specialty)",
+    "src": "./assets/images/projects/maryland-dc-metro.jpg",
+    "title": "Commercial Food Prep Flooring",
+    "caption": "Food Processing Facility \u2022 Heavy Duty Polyaspartic System"
+  },
+  {
+    "id": "gallery-16",
+    "page": "Gallery Page",
+    "file": "reviews.html",
+    "section": "Gallery Item #16 (Industrial / Specialty)",
+    "src": "./assets/images/projects/texas-commercial-project.jpg",
+    "title": "Manufacturing Plant Epoxy System",
+    "caption": "Manufacturing Complex \u2022 Industrial Resinous Coating"
+  },
+  {
+    "id": "about-main",
+    "page": "About Page",
+    "file": "about-us.html",
+    "section": "Company Profile Feature Photo",
+    "src": "./assets/images/projects/wilbraham-stemwall-garage.jpg",
+    "title": "Why Commercial & Residential Clients Choose LionStone",
+    "caption": "Mechanical surface preparation & 100% solid polyaspartic and epoxy systems."
+  },
+  {
+    "id": "about-card-1",
+    "page": "About Page",
+    "file": "about-us.html",
+    "section": "Proven Track Record Card #1",
+    "src": "./assets/images/projects/warehouse-safety-walkway.jpg",
+    "title": "Commercial & Industrial Facilities",
+    "caption": "Large-footprint industrial logistics walkways, safety stairwells, and manufacturing plant floors."
+  },
+  {
+    "id": "about-card-2",
+    "page": "About Page",
+    "file": "about-us.html",
+    "section": "Proven Track Record Card #2",
+    "src": "./assets/images/projects/cleanroom-covebase.jpg",
+    "title": "Specialized Resinous Systems",
+    "caption": "Integral cove base, USDA-compliant sanitary coatings, and high-impact resinous surfaces."
+  },
+  {
+    "id": "about-card-3",
+    "page": "About Page",
+    "file": "about-us.html",
+    "section": "Proven Track Record Card #3",
+    "src": "./assets/images/projects/corvette-garage-showcase.jpg",
+    "title": "Automotive & High-End Workshops",
+    "caption": "Commercial-grade polyaspartic flake systems engineered for dealership showrooms and private workshops."
+  }
+];
+const PHOTO_LIBRARY = [
+  {
+    "path": "./assets/images/projects/boston-logistics-bay.jpg",
+    "label": "Boston Logistics Bay",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/projects/cleanroom-covebase.jpg",
+    "label": "Cleanroom Covebase",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/projects/commercial-stair-tower.jpg",
+    "label": "Commercial Stair Tower",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/projects/corvette-garage-angle2.jpg",
+    "label": "Corvette Garage Angle2",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/projects/corvette-garage-showcase.jpg",
+    "label": "Corvette Garage Showcase",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/projects/garage-cure-after.jpg",
+    "label": "Garage Cure After",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/projects/garage-prep-before.jpg",
+    "label": "Garage Prep Before",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/projects/garage-split-after.jpg",
+    "label": "Garage Split After",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/projects/garage-split-before.jpg",
+    "label": "Garage Split Before",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/projects/luxury-cabinet-garage.jpg",
+    "label": "Luxury Cabinet Garage",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/projects/macro-flake-texture.jpg",
+    "label": "Macro Flake Texture",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/projects/maryland-dc-metro.jpg",
+    "label": "Maryland Dc Metro",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/projects/ramp-after.jpg",
+    "label": "Ramp After",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/projects/ramp-before.jpg",
+    "label": "Ramp Before",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/projects/split-garage-comparison.jpg",
+    "label": "Split Garage Comparison",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/projects/stairs-after.jpg",
+    "label": "Stairs After",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/projects/stairs-before.jpg",
+    "label": "Stairs Before",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/projects/texas-commercial-project.jpg",
+    "label": "Texas Commercial Project",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/projects/vermont-installation.jpg",
+    "label": "Vermont Installation",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/projects/warehouse-safety-walkway.jpg",
+    "label": "Warehouse Safety Walkway",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/projects/wilbraham-stemwall-garage.jpg",
+    "label": "Wilbraham Stemwall Garage",
+    "group": "projects"
+  },
+  {
+    "path": "./assets/images/Ashford-Concrete-Densifier-Application_-600x338.jpg",
+    "label": "Ashford Concrete Densifier Application  600x338",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/High-Chemical-restance-flooring-systems-450x600.jpg",
+    "label": "High Chemical restance flooring systems 450x600",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-1-600x337.jpg",
+    "label": "Lionstone Concrete Coating Epoxy Flooring new england 1 600x337",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-15-1024x682.jpg",
+    "label": "Lionstone Concrete Coating Epoxy Flooring new england 15 1024x682",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-2-600x450.jpg",
+    "label": "Lionstone Concrete Coating Epoxy Flooring new england 2 600x450",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-3-1024x576.jpg",
+    "label": "Lionstone Concrete Coating Epoxy Flooring new england 3 1024x576",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-3-600x337.jpg",
+    "label": "Lionstone Concrete Coating Epoxy Flooring new england 3 600x337",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-3.jpg",
+    "label": "Lionstone Concrete Coating Epoxy Flooring new england 3",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-4.jpg",
+    "label": "Lionstone Concrete Coating Epoxy Flooring new england 4",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-5-600x280.jpg",
+    "label": "Lionstone Concrete Coating Epoxy Flooring new england 5 600x280",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-6.jpg",
+    "label": "Lionstone Concrete Coating Epoxy Flooring new england 6",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-7-1.jpg",
+    "label": "Lionstone Concrete Coating Epoxy Flooring new england 7 1",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-7-835x1024.jpg",
+    "label": "Lionstone Concrete Coating Epoxy Flooring new england 7 835x1024",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-7.jpg",
+    "label": "Lionstone Concrete Coating Epoxy Flooring new england 7",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-8.jpg",
+    "label": "Lionstone Concrete Coating Epoxy Flooring new england 8",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-9-1024x1024.jpg",
+    "label": "Lionstone Concrete Coating Epoxy Flooring new england 9 1024x1024",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/Polished-Concrete.jpeg",
+    "label": "Polished Concrete",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/Public-Stairways-that-are-safe-and-cleanable-503x600.jpg",
+    "label": "Public Stairways that are safe and cleanable 503x600",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/Residential-or-Commerical-Flooring-768x1024.jpg",
+    "label": "Residential or Commerical Flooring 768x1024",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/Residential-or-Commerical-Flooring.jpg",
+    "label": "Residential or Commerical Flooring",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/Stain-and-Seal-Concrete.jpeg",
+    "label": "Stain and Seal Concrete",
+    "group": "assets"
+  },
+  {
+    "path": "./assets/images/floor-renovation-process.jpg",
+    "label": "floor renovation process",
+    "group": "assets"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/133942145781419089.jpg",
+    "label": "133942145781419089",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/2019082395100212.jpeg",
+    "label": "2019082395100212",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/240_F_1101187134_4aLMeeGZIO1mBXUTGwW0A7wabQI5PIHe.jpg",
+    "label": "240 F 1101187134 4aLMeeGZIO1mBXUTGwW0A7wabQI5PIHe",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/240_F_1292873077_pSNnMxs6AGmF9j0QTA1TGBkKzsC7ludL.jpg",
+    "label": "240 F 1292873077 pSNnMxs6AGmF9j0QTA1TGBkKzsC7ludL",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/57162435862__9D73711D-FBAE-44F0-918E-732DA9C97B13.JPG",
+    "label": "57162435862  9D73711D FBAE 44F0 918E 732DA9C97B13",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/90172.jpg",
+    "label": "90172",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Ashford-Concrete-Densifier-Application-flooring-300x200.jpg",
+    "label": "Ashford Concrete Densifier Application flooring 300x200",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Concrete-floor-repair-300x200 (1).jpg",
+    "label": "Concrete floor repair 300x200 (1)",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Concrete-floor-repair-300x200.jpg",
+    "label": "Concrete floor repair 300x200",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Corvette 2.jpeg",
+    "label": "Corvette 2",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Corvette 3.jpeg",
+    "label": "Corvette 3",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Corvette.jpeg",
+    "label": "Corvette",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/DIY-Epoxy-Floor car low view.webp",
+    "label": "DIY Epoxy Floor car low view",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Deck finish 1.jpeg",
+    "label": "Deck finish 1",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Deck.jpeg",
+    "label": "Deck",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Epoxy-Floor-Coating-flake.webp",
+    "label": "Epoxy Floor Coating flake",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Flake greay black.jpg",
+    "label": "Flake greay black",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Garage Flooors.jpg",
+    "label": "Garage Flooors",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/High-Chemical-restance-flooring-systems.jpg",
+    "label": "High Chemical restance flooring systems",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_1196.JPG",
+    "label": "IMG 1196",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_1198.JPG",
+    "label": "IMG 1198",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_1201.JPG",
+    "label": "IMG 1201",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_1203.JPG",
+    "label": "IMG 1203",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_1227.jpg",
+    "label": "IMG 1227",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_1228.jpg",
+    "label": "IMG 1228",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_1229.jpg",
+    "label": "IMG 1229",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_1231.jpg",
+    "label": "IMG 1231",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_1366.JPG",
+    "label": "IMG 1366",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_1972.JPG",
+    "label": "IMG 1972",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_1987.JPG",
+    "label": "IMG 1987",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_1988.JPG",
+    "label": "IMG 1988",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_1989.JPG",
+    "label": "IMG 1989",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_2098.heic.jpeg",
+    "label": "IMG 2098.heic",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_2104.heic.jpeg",
+    "label": "IMG 2104.heic",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_2112.heic.jpeg",
+    "label": "IMG 2112.heic",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_2115.heic.jpeg",
+    "label": "IMG 2115.heic",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_2124.heic.jpeg",
+    "label": "IMG 2124.heic",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_2976.JPG",
+    "label": "IMG 2976",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_3063.jpg",
+    "label": "IMG 3063",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_3064.jpg",
+    "label": "IMG 3064",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_3065.jpg",
+    "label": "IMG 3065",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_3067.jpg",
+    "label": "IMG 3067",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_3174.JPG",
+    "label": "IMG 3174",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_3497.jpg",
+    "label": "IMG 3497",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_3850.jpg",
+    "label": "IMG 3850",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_5317.PNG",
+    "label": "IMG 5317",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_5516.JPG",
+    "label": "IMG 5516",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_5615.JPG",
+    "label": "IMG 5615",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_5617.JPG",
+    "label": "IMG 5617",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_5680.JPG",
+    "label": "IMG 5680",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_5739.JPG",
+    "label": "IMG 5739",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_5855.JPG",
+    "label": "IMG 5855",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_5861.jpg",
+    "label": "IMG 5861",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_5978.JPG",
+    "label": "IMG 5978",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_5979.JPG",
+    "label": "IMG 5979",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6006.jpeg",
+    "label": "IMG 6006",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6007.jpeg",
+    "label": "IMG 6007",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6048.JPG",
+    "label": "IMG 6048",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6053.JPG",
+    "label": "IMG 6053",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6066.JPG",
+    "label": "IMG 6066",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6072.JPG",
+    "label": "IMG 6072",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6101.JPG",
+    "label": "IMG 6101",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6110.JPG",
+    "label": "IMG 6110",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6143.JPG",
+    "label": "IMG 6143",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6147.JPG",
+    "label": "IMG 6147",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6149.JPG",
+    "label": "IMG 6149",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6251.jpg",
+    "label": "IMG 6251",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6340.jpg",
+    "label": "IMG 6340",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6431.JPG",
+    "label": "IMG 6431",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6456.JPG",
+    "label": "IMG 6456",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6459.JPG",
+    "label": "IMG 6459",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6493.JPG",
+    "label": "IMG 6493",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6496.JPG",
+    "label": "IMG 6496",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6503.JPG",
+    "label": "IMG 6503",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6555.JPG",
+    "label": "IMG 6555",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6565.jpeg",
+    "label": "IMG 6565",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6566.jpeg",
+    "label": "IMG 6566",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6567.jpeg",
+    "label": "IMG 6567",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6599.JPG",
+    "label": "IMG 6599",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6635.JPG",
+    "label": "IMG 6635",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6647.JPG",
+    "label": "IMG 6647",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6649.JPG",
+    "label": "IMG 6649",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6650.jpg",
+    "label": "IMG 6650",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6651.jpg",
+    "label": "IMG 6651",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6689.JPG",
+    "label": "IMG 6689",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6691.JPG",
+    "label": "IMG 6691",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6880.JPG",
+    "label": "IMG 6880",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6881.JPG",
+    "label": "IMG 6881",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6909.JPG",
+    "label": "IMG 6909",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6910.JPG",
+    "label": "IMG 6910",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6936.JPG",
+    "label": "IMG 6936",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6951.JPG",
+    "label": "IMG 6951",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6958.JPG",
+    "label": "IMG 6958",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6959.JPG",
+    "label": "IMG 6959",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6960.JPG",
+    "label": "IMG 6960",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6961.JPG",
+    "label": "IMG 6961",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6965.JPG",
+    "label": "IMG 6965",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6967.JPG",
+    "label": "IMG 6967",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_6968.JPG",
+    "label": "IMG 6968",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_7080.JPG",
+    "label": "IMG 7080",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/IMG_7081.JPG",
+    "label": "IMG 7081",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-3-300x169.jpg",
+    "label": "Lionstone Concrete Coating Epoxy Flooring new england 3 300x169",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-7-245x300.jpg",
+    "label": "Lionstone Concrete Coating Epoxy Flooring new england 7 245x300",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-7.jpg",
+    "label": "Lionstone Concrete Coating Epoxy Flooring new england 7",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-9.jpg",
+    "label": "Lionstone Concrete Coating Epoxy Flooring new england 9",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Lionstone-Concrete-flooring-and-epoxy-flooring-25.jpg",
+    "label": "Lionstone Concrete flooring and epoxy flooring 25",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Polished-concrete-flooring.png",
+    "label": "Polished concrete flooring",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Public-Stairways-that-are-safe-and-cleanable.jpg",
+    "label": "Public Stairways that are safe and cleanable",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Residential-or-Commerical-Flooring.jpg",
+    "label": "Residential or Commerical Flooring",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Stairs 1.jpeg",
+    "label": "Stairs 1",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/Stairs 2.jpeg",
+    "label": "Stairs 2",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/deck 2.jpeg",
+    "label": "deck 2",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/epoxy-floor-amarello-2.webp",
+    "label": "epoxy floor amarello 2",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/epoxy-garage-floor-Black.jpg",
+    "label": "epoxy garage floor Black",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/finish 2.jpeg",
+    "label": "finish 2",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/lionstone-concrete-coatings-and-flooring-g.png",
+    "label": "lionstone concrete coatings and flooring g",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/split emage.png",
+    "label": "split emage",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/thumbnail_IMG_5439.jpg",
+    "label": "thumbnail IMG 5439",
+    "group": "onedrive"
+  },
+  {
+    "path": "./OneDrive_1_9-30-2026/warehouse-epoxy-resin-flooring_-300x182.jpg",
+    "label": "warehouse epoxy resin flooring  300x182",
+    "group": "onedrive"
+  }
+];
+
+const STORAGE_KEY = 'lionstone_photo_manager_draft_v1';
+let draftState = {};
+try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) draftState = JSON.parse(saved);
+} catch (e) {}
+
+let activePageFilter = 'ALL';
+let activeSlotId = null;
+let activeLibGroup = 'projects';
+
+function showToast(msg, isError) {
+    const el = document.getElementById('pm-toast');
+    el.textContent = msg;
+    el.style.borderLeftColor = isError ? '#DC2626' : '#10B981';
+    el.style.display = 'block';
+    setTimeout(() => { el.style.display = 'none'; }, 3500);
+}
+
+function saveDraft() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(draftState)); } catch (e) {}
+    updateChangeCount();
+}
+
+function getEffective(slot) {
+    const d = draftState[slot.id] || {};
+    return {
+        src: d.src !== undefined ? d.src : slot.src,
+        customFileName: d.customFileName || null,
+        title: d.title !== undefined ? d.title : slot.title,
+        caption: d.caption !== undefined ? d.caption : slot.caption,
+        removed: Boolean(d.removed)
+    };
+}
+
+function isSlotModified(slot) {
+    const eff = getEffective(slot);
+    return eff.removed || eff.src !== slot.src || eff.title !== slot.title || eff.caption !== slot.caption;
+}
+
+function getModifiedChanges() {
+    const list = [];
+    for (const slot of PHOTO_SLOTS) {
+        if (!isSlotModified(slot)) continue;
+        const eff = getEffective(slot);
+        list.push({
+            id: slot.id,
+            page: slot.page,
+            file: slot.file,
+            section: slot.section,
+            action: eff.removed ? 'REMOVE' : 'UPDATE',
+            origSrc: slot.src,
+            newSrc: eff.src,
+            customFileName: eff.customFileName,
+            origTitle: slot.title,
+            newTitle: eff.title,
+            origCaption: slot.caption,
+            newCaption: eff.caption
+        });
+    }
+    return list;
+}
+
+function updateChangeCount() {
+    const mods = getModifiedChanges().length;
+    document.getElementById('pm-mod-count').textContent = mods + (mods === 1 ? ' Change Queued' : ' Changes Queued');
+    document.getElementById('pm-tab-mod-num').textContent = mods;
+}
+
+function renderSlots() {
+    const grid = document.getElementById('pm-slots-grid');
+    grid.innerHTML = '';
+
+    const filtered = PHOTO_SLOTS.filter(slot => {
+        if (activePageFilter === 'ALL') return true;
+        if (activePageFilter === 'MODIFIED') return isSlotModified(slot);
+        return slot.page === activePageFilter;
+    });
+
+    if (!filtered.length) {
+        grid.innerHTML = '<div style="grid-column:1/-1; background:#fff; padding:40px; text-align:center; border-radius:6px; border:1px solid #CBD5E1;">No photo slots match this filter.</div>';
+        return;
+    }
+
+    filtered.forEach(slot => {
+        const eff = getEffective(slot);
+        const mod = isSlotModified(slot);
+        const card = document.createElement('div');
+        card.className = 'pm-card' + (mod ? ' pm-modified' : '') + (eff.removed ? ' pm-removed' : '');
+
+        const displayPath = eff.customFileName ? ('[Uploaded PC File: ' + eff.customFileName + ']') : eff.src;
+        const imgSrc = eff.src.startsWith('data:') ? eff.src : encodeURI(eff.src);
+
+        card.innerHTML = `
+            <div class="pm-card-head">
+                <span>${slot.section}</span>
+                <span class="pm-page-pill">${slot.file}</span>
+            </div>
+            <div class="pm-img-wrap">
+                <img src="${imgSrc}" alt="${slot.title}" loading="lazy" />
+                <span class="pm-status-ribbon">${eff.removed ? 'Flagged to Remove' : 'Modified'}</span>
+                <button type="button" class="pm-fit-btn">Toggle Crop/Full</button>
+            </div>
+            <div class="pm-body">
+                <div class="pm-path">${displayPath}</div>
+                <div class="pm-field">
+                    <label>Headline / Title</label>
+                    <input type="text" class="pm-inp-title" />
+                </div>
+                <div class="pm-field">
+                    <label>Caption / Description</label>
+                    <textarea rows="2" class="pm-inp-caption"></textarea>
+                </div>
+            </div>
+            <div class="pm-card-footer">
+                <button type="button" class="pm-card-btn pm-card-btn-swap"><i class="fas fa-images"></i> Swap Photo</button>
+                <button type="button" class="pm-card-btn pm-card-btn-remove"><i class="fas fa-trash-alt"></i> ${eff.removed ? 'Restore Card' : 'Hide / Remove'}</button>
+            </div>
+        `;
+
+        const inpTitle = card.querySelector('.pm-inp-title');
+        const inpCap = card.querySelector('.pm-inp-caption');
+        inpTitle.value = eff.title;
+        inpCap.value = eff.caption;
+
+        inpTitle.addEventListener('input', () => {
+            draftState[slot.id] = Object.assign({}, draftState[slot.id], { title: inpTitle.value });
+            saveDraft();
+            card.classList.toggle('pm-modified', isSlotModified(slot));
+        });
+
+        inpCap.addEventListener('input', () => {
+            draftState[slot.id] = Object.assign({}, draftState[slot.id], { caption: inpCap.value });
+            saveDraft();
+            card.classList.toggle('pm-modified', isSlotModified(slot));
+        });
+
+        card.querySelector('.pm-fit-btn').addEventListener('click', () => {
+            card.classList.toggle('pm-fit-contain');
+        });
+
+        card.querySelector('.pm-card-btn-swap').addEventListener('click', () => {
+            openPicker(slot);
+        });
+
+        card.querySelector('.pm-card-btn-remove').addEventListener('click', () => {
+            const cur = getEffective(slot);
+            draftState[slot.id] = Object.assign({}, draftState[slot.id], { removed: !cur.removed });
+            saveDraft();
+            renderSlots();
+        });
+
+        grid.appendChild(card);
+    });
+}
+
+function openPicker(slot) {
+    activeSlotId = slot.id;
+    document.getElementById('pm-picker-title').textContent = 'Swap Photo — ' + slot.section;
+    document.getElementById('pm-picker-subtitle').textContent = slot.file + ' • Current: ' + getEffective(slot).src;
+    document.getElementById('pm-picker-modal').classList.add('active');
+    renderPickerGrid();
+}
+
+function closePicker() {
+    document.getElementById('pm-picker-modal').classList.remove('active');
+    activeSlotId = null;
+}
+
+function renderPickerGrid() {
+    const grid = document.getElementById('pm-picker-grid');
+    const q = (document.getElementById('pm-picker-search').value || '').toLowerCase().trim();
+    document.getElementById('pm-onedrive-note').style.display = activeLibGroup === 'onedrive' ? 'block' : 'none';
+
+    const items = PHOTO_LIBRARY.filter(item =>
+        item.group === activeLibGroup && (!q || item.label.toLowerCase().includes(q) || item.path.toLowerCase().includes(q))
+    );
+
+    grid.innerHTML = '';
+    if (!items.length) {
+        grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:30px; color:#64748B;">No matching photos found in this tab.</div>';
+        return;
+    }
+
+    items.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'pm-pick-item';
+        const img = document.createElement('img');
+        img.loading = 'lazy';
+        img.src = encodeURI(item.path);
+        img.alt = item.label;
+        img.onerror = function() {
+            if (activeLibGroup === 'onedrive') {
+                div.style.display = 'none';
+            }
+        };
+        const lbl = document.createElement('div');
+        lbl.className = 'pm-pick-label';
+        lbl.textContent = item.label;
+        div.appendChild(img);
+        div.appendChild(lbl);
+
+        div.addEventListener('click', () => {
+            if (!activeSlotId) return;
+            draftState[activeSlotId] = Object.assign({}, draftState[activeSlotId], {
+                src: item.path,
+                customFileName: null,
+                removed: false
+            });
+            saveDraft();
+            closePicker();
+            renderSlots();
+            showToast('Updated photo selection — click "Copy Changes" when ready to publish.');
+        });
+
+        grid.appendChild(div);
+    });
+}
+
+document.getElementById('pm-file-upload').addEventListener('change', function() {
+    const file = this.files && this.files[0];
+    if (!file || !activeSlotId) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        draftState[activeSlotId] = Object.assign({}, draftState[activeSlotId], {
+            src: e.target.result,
+            customFileName: file.name,
+            removed: false
+        });
+        saveDraft();
+        closePicker();
+        renderSlots();
+        showToast('Loaded preview for "' + file.name + '"');
+    };
+    reader.readAsDataURL(file);
+    this.value = '';
+});
+
+document.querySelectorAll('.pm-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.pm-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activePageFilter = btn.getAttribute('data-page');
+        renderSlots();
+    });
+});
+
+document.querySelectorAll('.pm-picker-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.pm-picker-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeLibGroup = btn.getAttribute('data-lib-group');
+        renderPickerGrid();
+    });
+});
+
+document.getElementById('pm-picker-search').addEventListener('input', renderPickerGrid);
+document.getElementById('pm-picker-close').addEventListener('click', closePicker);
+document.getElementById('pm-picker-modal').addEventListener('click', e => { if (e.target.id === 'pm-picker-modal') closePicker(); });
+
+document.getElementById('pm-export-btn').addEventListener('click', () => {
+    const changes = getModifiedChanges();
+    if (!changes.length) {
+        showToast('No changes yet — swap a photo, edit a caption, or flag a card first.', true);
+        return;
+    }
+    const lines = ['Please apply these website photo & caption changes and publish live:', ''];
+    changes.forEach((c, idx) => {
+        lines.push(`${idx + 1}. [${c.file} — ${c.section}] Action: ${c.action}`);
+        if (c.action === 'REMOVE') {
+            lines.push(`   - Remove/hide card (Title: "${c.origTitle}", Image: ${c.origSrc})`);
+        } else {
+            if (c.origSrc !== c.newSrc) {
+                const target = c.customFileName ? ('NEW UPLOADED FILE: ' + c.customFileName) : c.newSrc;
+                lines.push(`   - Change photo from "${c.origSrc}" -> "${target}"`);
+            }
+            if (c.origTitle !== c.newTitle) {
+                lines.push(`   - Change title from "${c.origTitle}" -> "${c.newTitle}"`);
+            }
+            if (c.origCaption !== c.newCaption) {
+                lines.push(`   - Change caption from "${c.origCaption}" -> "${c.newCaption}"`);
+            }
+        }
+    });
+    const summaryText = lines.join('\n');
+    document.getElementById('pm-export-text').value = summaryText;
+    document.getElementById('pm-export-modal').classList.add('active');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(summaryText).then(() => showToast('Copied ' + changes.length + ' change(s) to clipboard!'));
+    }
+});
+
+document.getElementById('pm-copy-textarea-btn').addEventListener('click', () => {
+    const ta = document.getElementById('pm-export-text');
+    ta.select();
+    document.execCommand('copy');
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(ta.value);
+    showToast('Copied changes to clipboard!');
+});
+
+document.getElementById('pm-export-close').addEventListener('click', () => document.getElementById('pm-export-modal').classList.remove('active'));
+
+document.getElementById('pm-save-local-btn').addEventListener('click', async () => {
+    const changes = getModifiedChanges();
+    if (!changes.length) {
+        showToast('No modified cards to save.', true);
+        return;
+    }
+    try {
+        const res = await fetch('/api/apply-photo-changes', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ changes })
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        showToast('Saved photo_overrides.json (' + data.applied_count + ' file update(s) applied locally).');
+    } catch (err) {
+        showToast('Direct Save requires running locally via start_server.bat / python server.py. Use "Copy Changes for Antigravity" online.', true);
+    }
+});
+
+document.getElementById('pm-reset-btn').addEventListener('click', () => {
+    if (!confirm('Reset all unsaved photo/caption edits back to the current live website?')) return;
+    draftState = {};
+    saveDraft();
+    renderSlots();
+    showToast('Reset all edits.');
+});
+
+// Init counts & mode indicator
+document.getElementById('lib-cnt-projects').textContent = PHOTO_LIBRARY.filter(x => x.group === 'projects').length;
+document.getElementById('lib-cnt-assets').textContent = PHOTO_LIBRARY.filter(x => x.group === 'assets').length;
+document.getElementById('lib-cnt-onedrive').textContent = PHOTO_LIBRARY.filter(x => x.group === 'onedrive').length;
+
+const host = window.location.hostname;
+document.getElementById('pm-mode-indicator').innerHTML =
+    (host === 'localhost' || host === '127.0.0.1' || window.location.protocol === 'file:')
+    ? '<span style="color:#16A34A; font-weight:700;"><i class="fas fa-circle"></i> Local Mode (Raw OneDrive archive + Save Locally enabled)</span>'
+    : '<span style="color:#2563EB; font-weight:700;"><i class="fas fa-globe"></i> Live Mode (Use "Copy Changes for Antigravity" to publish edits)</span>';
+
+updateChangeCount();
+renderSlots();
+</script>
+</body>
+</html>
