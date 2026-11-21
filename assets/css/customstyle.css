@@ -2119,3 +2119,51 @@ details.ls-faq-item[open] summary.ls-faq-question .ls-faq-toggle::before {
         padding: 18px;
     }
 }
+
+/* ==========================================================================
+   Global Drain Technologies Silver Alliance Banner
+   ========================================================================== */
+.ls-gdt-banner {
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-left: 5px solid var(--ls-accent);
+    border-radius: 8px;
+    padding: 34px 36px;
+    margin-top: 40px;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    flex-wrap: wrap;
+    box-shadow: var(--ls-shadow-md);
+}
+
+.ls-gdt-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(226, 232, 240, 0.12);
+    border: 1px solid rgba(226, 232, 240, 0.35);
+    color: #F1F5F9;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.ls-gdt-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+    .ls-gdt-banner {
+        padding: 24px 20px;
+    }
+}
