@@ -782,16 +782,24 @@ button, input, select, textarea { font-family: inherit; }
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
+    padding: 0 8px;
     border-radius: 30px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
+    white-space: nowrap;
     text-decoration: none !important;
     transition: transform 0.2s ease;
 }
 
 .sticky-btn-call {
     background: #1E293B;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sticky-btn-sms {
+    background: #0D9488;
     color: #FFFFFF !important;
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -2165,5 +2173,106 @@ details.ls-faq-item[open] summary.ls-faq-question .ls-faq-toggle::before {
 @media (max-width: 600px) {
     .ls-gdt-banner {
         padding: 24px 20px;
+    }
+}
+
+/* ==========================================================================
+   Hero Split Quick-Quote Form & In-Quiz Lead Capture
+   ========================================================================== */
+.ls-hero-split-grid {
+    display: grid;
+    grid-template-columns: 1.18fr 0.92fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.ls-hero-quote-card {
+    background: #FFFFFF;
+    color: var(--ls-text-dark);
+    border-radius: 8px;
+    padding: 26px 26px 22px 26px;
+    border-top: 4px solid var(--ls-accent);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+}
+
+.ls-hero-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.ls-hero-field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ls-primary);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.ls-hero-field input,
+.ls-hero-field select {
+    width: 100%;
+    padding: 9px 12px;
+    font-size: 14px;
+    color: var(--ls-primary);
+    background: #FFFFFF;
+    border: 1px solid var(--ls-border);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.ls-hero-field input:focus,
+.ls-hero-field select:focus {
+    outline: none;
+    border-color: var(--ls-accent);
+}
+
+.ls-btn-sms-hero {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px 20px;
+    border-radius: 4px;
+    font-family: var(--ls-font-display);
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: #0D9488;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.ls-btn-sms-hero:hover {
+    background: #0F766E;
+    transform: translateY(-2px);
+}
+
+.ls-quiz-lead-box {
+    background: #F8FAFC;
+    border: 1px solid var(--ls-border);
+    border-top: 3px solid var(--ls-accent);
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 14px;
+}
+
+@media (max-width: 960px) {
+    .ls-hero-split-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+}
+
+@media (max-width: 540px) {
+    .ls-hero-quote-card {
+        padding: 20px 18px;
+    }
+    .ls-hero-form-grid {
+        grid-template-columns: 1fr;
     }
 }

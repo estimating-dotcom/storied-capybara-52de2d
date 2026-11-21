@@ -213,12 +213,16 @@ function initStickyMobileBar() {
     const mobileBarHTML = `
         <div id="lionstone-mobile-action-bar" class="lionstone-mobile-sticky-bar">
             <a href="tel:8608050061" class="sticky-btn sticky-btn-call" aria-label="Call LionStone Floors">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                <span>Call (860) 805-0061</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                <span>Call</span>
             </a>
-            <a href="./contact.html" class="sticky-btn sticky-btn-estimate" aria-label="Request Quote">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-                <span>Request Quote</span>
+            <a href="sms:8608050061" class="sticky-btn sticky-btn-sms" aria-label="Text Floor Photos for Quote">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 16l-5-5-4 4-2-2-7 6"/></svg>
+                <span>Text Photo</span>
+            </a>
+            <a href="./contact.html" class="sticky-btn sticky-btn-estimate" aria-label="Request Free Quote">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                <span>Free Quote</span>
             </a>
         </div>
     `;
@@ -509,26 +513,96 @@ function initFloorAssessmentQuiz() {
 
         const quoteUrl = `./contact.html?system=${encodeURIComponent(recSystem + ' (' + state.facility + ')')}&sqft=${encodeURIComponent(state.sqft)}`;
 
+        let mappedProjectType = 'Manufacturing Facility';
+        const facLower = state.facility.toLowerCase();
+        if (facLower.includes('warehous') || facLower.includes('logistics')) {
+            mappedProjectType = 'Warehouse / Logistics';
+        } else if (facLower.includes('food') || facLower.includes('cleanroom')) {
+            mappedProjectType = 'Food & Beverage / Cleanroom';
+        } else if (facLower.includes('commercial') || facLower.includes('stair')) {
+            mappedProjectType = 'Commercial Facility';
+        } else if (facLower.includes('automotive')) {
+            mappedProjectType = 'Automotive / Fleet Bays';
+        } else if (facLower.includes('residential')) {
+            mappedProjectType = 'Garage Flake Floor';
+        }
+
+        const specSummary = `[60-Second Floor Assessment Quiz]\nFacility: ${state.facility}\nPrimary Focus: ${state.challenge}\nApprox. Area: ${state.sqft}\nRecommended System: ${recSystem}`;
+
+        if (typeof window.lionstoneTrackEvent === 'function') {
+            window.lionstoneTrackEvent('quiz_completed', {
+                event_category: 'engagement',
+                facility: state.facility,
+                challenge: state.challenge,
+                sqft: state.sqft,
+                recommended_system: recSystem
+            });
+        }
+
         stepContainer.innerHTML = `
-            <div style="background: #F0FDF4; border: 1px solid #86EFAC; padding: 12px 16px; border-radius: 6px; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; color: #166534; font-size: 13px; font-weight: 700;">
-                <i class="fas fa-check-circle" style="font-size: 18px; color: #16A34A;"></i>
-                <span>Recommended LionStone Specification Matched for ${state.facility}</span>
+            <div style="background: #F0FDF4; border: 1px solid #86EFAC; padding: 10px 14px; border-radius: 6px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; color: #166534; font-size: 13px; font-weight: 700;">
+                <i class="fas fa-check-circle" style="font-size: 16px; color: #16A34A;"></i>
+                <span>Recommended System Matched for ${state.facility}</span>
             </div>
-            <h3 style="font-size: 25px; margin: 0 0 10px 0; color: var(--ls-primary);">${recSystem}</h3>
-            <div style="background: var(--ls-bg-light); border-left: 4px solid var(--ls-accent); padding: 16px; margin-bottom: 20px; display: grid; gap: 8px; font-size: 13.5px;">
-                <div><strong><i class="fas fa-drafting-compass" style="color: var(--ls-accent); width: 18px;"></i> Surface Preparation:</strong> ${recPrep}</div>
-                <div><strong><i class="fas fa-layer-group" style="color: var(--ls-accent); width: 18px;"></i> System Build Profile:</strong> ${recBuild}</div>
-                <div><strong><i class="fas fa-bullseye" style="color: var(--ls-accent); width: 18px;"></i> Primary Focus:</strong> ${state.challenge} (${state.sqft})</div>
+            <h3 style="font-size: 22px; margin: 0 0 8px 0; color: var(--ls-primary);">${recSystem}</h3>
+            <div style="background: #FFFFFF; border: 1px solid var(--ls-border); border-left: 4px solid var(--ls-accent); padding: 12px 14px; margin-bottom: 16px; display: grid; gap: 6px; font-size: 13px;">
+                <div><strong><i class="fas fa-drafting-compass" style="color: var(--ls-accent); width: 18px;"></i> Prep:</strong> ${recPrep}</div>
+                <div><strong><i class="fas fa-layer-group" style="color: var(--ls-accent); width: 18px;"></i> Build:</strong> ${recBuild}</div>
+                <div><strong><i class="fas fa-bullseye" style="color: var(--ls-accent); width: 18px;"></i> Scope:</strong> ${state.challenge} (${state.sqft})</div>
             </div>
-            <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
-                <a href="${quoteUrl}" class="btn-ls-primary" style="flex: 1; justify-content: center;">
-                    Request Site Visit & Quote for This Spec <i class="fas fa-arrow-right"></i>
+
+            <form action="https://api.web3forms.com/submit" method="POST" class="native-estimate-form ls-quiz-lead-box" id="ls-quiz-lead-form">
+                <input type="hidden" name="access_key" value="b1cdf58f-0e10-461e-81ea-d7477937009e" />
+                <input type="hidden" name="subject" value="New 60-Second Floor Assessment Lead | LionStone Floors" />
+                <input type="hidden" name="from_name" value="LionStone Website Lead Engine (Floor Assessment Quiz)" />
+                <input type="hidden" name="redirect" value="https://lionstonefloors.com/calendar/" />
+                <input type="hidden" name="source" value="60-Second Floor Assessment Quiz" />
+                <input type="hidden" name="project_type" value="${mappedProjectType}" />
+                <input type="hidden" name="sqft" value="${state.sqft}" />
+                <input type="hidden" name="message" value="" id="ls-quiz-hidden-message" />
+                <input type="checkbox" name="botcheck" style="display: none;" />
+
+                <div style="font-size: 13px; font-weight: 800; color: var(--ls-primary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.04em;">
+                    Get an Itemized Quote for This Specification
+                </div>
+                <div class="ls-hero-form-grid" style="margin-bottom: 12px;">
+                    <div class="ls-hero-field">
+                        <label for="quiz-name">Full Name *</label>
+                        <input type="text" id="quiz-name" name="name" required placeholder="" />
+                    </div>
+                    <div class="ls-hero-field">
+                        <label for="quiz-phone">Phone *</label>
+                        <input type="tel" id="quiz-phone" name="phone" required placeholder="" />
+                    </div>
+                    <div class="ls-hero-field">
+                        <label for="quiz-email">Email *</label>
+                        <input type="email" id="quiz-email" name="email" required placeholder="" />
+                    </div>
+                    <div class="ls-hero-field">
+                        <label for="quiz-city">City / Town *</label>
+                        <input type="text" id="quiz-city" name="city" required placeholder="" />
+                    </div>
+                </div>
+                <button type="submit" class="btn-ls-primary" style="width: 100%; justify-content: center; padding: 13px 18px !important;">
+                    Send Me Spec &amp; Free Quote <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: space-between; font-size: 13px;">
+                <a href="${quoteUrl}" style="color: var(--ls-accent); font-weight: 700; text-decoration: underline;">
+                    Or open full contact form <i class="fas fa-arrow-right"></i>
                 </a>
-                <button type="button" id="ls-quiz-restart" style="background: none; border: 1px solid var(--ls-border); padding: 12px 16px; border-radius: 4px; font-size: 13px; font-weight: 700; cursor: pointer; color: var(--ls-text-dark);">
+                <button type="button" id="ls-quiz-restart" style="background: none; border: 1px solid var(--ls-border); padding: 8px 14px; border-radius: 4px; font-size: 12.5px; font-weight: 700; cursor: pointer; color: var(--ls-text-dark);">
                     Start Over
                 </button>
             </div>
         `;
+        const hiddenMsg = document.getElementById('ls-quiz-hidden-message');
+        if (hiddenMsg) hiddenMsg.value = specSummary;
+        const quizForm = document.getElementById('ls-quiz-lead-form');
+        if (quizForm && typeof window.lionstoneBindEstimateForm === 'function') {
+            window.lionstoneBindEstimateForm(quizForm);
+        }
         document.getElementById('ls-quiz-restart').addEventListener('click', renderStep1);
     }
 

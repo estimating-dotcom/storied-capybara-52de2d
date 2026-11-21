@@ -85,12 +85,25 @@
       gtag('js', new Date());
 
       gtag('config', 'AW-17046742942');
+      if (window.LIONSTONE_GA4_ID) {
+        gtag('config', window.LIONSTONE_GA4_ID);
+      }
+      try {
+        if (!sessionStorage.getItem('ls_lead_confirmed')) {
+          gtag('event', 'generate_lead', {
+            event_category: 'lead',
+            event_label: 'estimate_confirmation_page',
+            value: 1
+          });
+          sessionStorage.setItem('ls_lead_confirmed', '1');
+        }
+      } catch (e) {}
     </script>
 </head>
 <body>
     <div class="thank-you-card">
         <a href="../index.html">
-            <img src="../assets/images/1776804454505_LionStone-Logo.jpg" alt="LionStone Concrete Coating" style="max-height: 55px; margin-bottom: 25px;">
+            <img src="../assets/images/logo-optimized.webp" alt="LionStone Concrete Coating" width="56" height="55" style="max-height: 55px; margin-bottom: 25px;">
         </a>
 
         <div class="check-icon">✓</div>
