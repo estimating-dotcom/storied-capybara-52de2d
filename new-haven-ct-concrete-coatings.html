@@ -2,7 +2,7 @@
 <html lang="en-US" prefix="og: https://ogp.me/ns#">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Commercial, Industrial & Residential Concrete Coatings in New Haven & Southern CT | LionStone Floors</title>
     <meta name="description" content="Industrial warehouse epoxy, healthcare & university cleanrooms, automotive service bays, and polyaspartic garage floors in New Haven, Wallingford, Meriden, Milford, Bridgeport, and Southern CT." />
     <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
@@ -119,12 +119,20 @@
 ]
     </script>
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="./assets/css/61231a27586d20893b3de5b08d22e234.css" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="stylesheet" href="./assets/css/customstyle.css?v=7" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-    <link rel="icon" href="./assets/images/1776804454505_LionStone-Logo-1.jpg" sizes="32x32" />
+    <!-- Preconnect & Critical Assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preload" as="image" href="./assets/images/hero-stair-tower.webp" fetchpriority="high" />
+    <!-- Stylesheets (render-critical customstyle.css only; fonts & icons non-blocking) -->
+    <link rel="stylesheet" href="./assets/css/customstyle.css?v=8" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" media="print" onload="this.media='all'" />
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    </noscript>
+    <link rel="icon" type="image/png" href="./assets/images/favicon-64.png" sizes="64x64" />
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17046742942"></script>
@@ -148,7 +156,7 @@
                 <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px;">
                     <div class="site-logo">
                         <a href="./index.html">
-                            <img src="./assets/images/1776804454505_LionStone-Logo.jpg" alt="LionStone Concrete Coatings Logo" style="max-height: 65px; object-fit: contain;" />
+                            <img src="./assets/images/logo-optimized.webp" alt="LionStone Concrete Coatings Logo" width="66" height="65" decoding="async" style="max-height: 65px; object-fit: contain;" />
                         </a>
                     </div>
 
@@ -271,7 +279,7 @@
     </header>
 
     <!-- Regional Hero -->
-    <section class="hero-section" style="position: relative; background: linear-gradient(90deg, rgba(9, 13, 22, 0.92) 0%, rgba(15, 23, 42, 0.80) 60%, rgba(15, 23, 42, 0.72) 100%), url('./assets/images/projects/commercial-stair-tower.jpg') center/cover no-repeat; padding: 95px 25px; color: #ffffff;">
+    <section class="hero-section" style="position: relative; background: linear-gradient(90deg, rgba(9, 13, 22, 0.92) 0%, rgba(15, 23, 42, 0.80) 60%, rgba(15, 23, 42, 0.72) 100%), url('./assets/images/hero-stair-tower.webp') center/cover no-repeat; padding: 95px 25px; color: #ffffff;">
         <div class="container" style="max-width: 1200px; margin: 0 auto;">
             <div style="max-width: 820px;">
                 <span class="ls-eyebrow ls-eyebrow-light">Serving Massachusetts &amp; Connecticut • New Haven, Wallingford &amp; Southern CT</span>
@@ -566,7 +574,7 @@
     <footer style="background: #0B0F19; color: #94A3B8; padding: 70px 20px 30px 20px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
         <div class="container" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; margin-bottom: 50px;">
             <div>
-                <img src="./assets/images/1776804454505_LionStone-Logo.jpg" alt="LionStone Concrete Coatings" loading="lazy" decoding="async" style="max-height: 55px; margin-bottom: 20px; filter: brightness(1.2);" />
+                <img src="./assets/images/logo-optimized.webp" alt="LionStone Concrete Coatings" width="56" height="55" loading="lazy" decoding="async" style="max-height: 55px; margin-bottom: 20px; filter: brightness(1.2);" />
                 <p style="font-size: 14px; line-height: 1.6; color: #94A3B8;">
                     LionStone Concrete Coating LLC provides commercial, residential, and industrial high-performance concrete coatings across Massachusetts and Connecticut. Engineered resinous systems for manufacturing plants, warehouses, commercial facilities, and residential garages.
                 </p>
@@ -631,8 +639,7 @@
 </div>
 
 <!-- Scripts -->
-<script src="./assets/js/jquery.min.js"></script>
-<script src="./assets/js/interactive_features.js?v=4"></script>
-<script src="./assets/js/form_handler.js?v=3"></script>
+<script src="./assets/js/interactive_features.js?v=4" defer></script>
+<script src="./assets/js/form_handler.js?v=3" defer></script>
 </body>
 </html>

@@ -2,8 +2,6 @@
    LionStone Floors - Luxury Architectural Design System & Component Library
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
-
 :root {
     --ls-primary: #0F172A;        /* Deep Slate Onyx */
     --ls-primary-dark: #090D16;
@@ -59,6 +57,16 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.08;
     color: var(--ls-primary);
 }
+
+/* Base Helpers (replaces unused legacy theme defaults) */
+img { max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font-family: inherit; }
+.website-wrapper { position: relative; background-color: #FFFFFF; }
+.container { width: 100%; max-width: 1200px; margin-left: auto; margin-right: auto; }
+.whb-row { transition: background-color 0.2s ease; }
+.site-logo { max-height: inherit; padding-inline: 10px; }
+.site-logo a { display: inline-flex; align-items: center; }
 
 /* Signature Architectural Square-Dot Eyebrow */
 .ls-eyebrow {
@@ -1813,7 +1821,7 @@ h1, h2, h3, h4, h5, h6 {
 .ls-prefooter-card {
     max-width: 1120px;
     margin: 0 auto;
-    background: linear-gradient(90deg, rgba(9, 13, 22, 0.92) 0%, rgba(15, 23, 42, 0.82) 100%), url('../images/Lionstone-Concrete-Coating-Epoxy-Flooring-new-england-3.jpg') center/cover no-repeat;
+    background: linear-gradient(90deg, rgba(9, 13, 22, 0.92) 0%, rgba(15, 23, 42, 0.82) 100%), url('../images/hero-epoxy-3.webp') center/cover no-repeat;
     padding: 65px 50px;
     display: flex;
     align-items: center;
