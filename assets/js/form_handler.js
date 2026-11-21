@@ -4,7 +4,7 @@
  * Production:
  *   1. Native HTML form POST to Web3Forms API -> estimating@lionstonefloors.com -> /calendar/ redirect.
  *   2. Parallel dual backup POST to Netlify Forms ("lionstone-leads-backup") via fetch/sendBeacon.
- *   3. Google Ads (AW-17046742942) + optional GA4 lead/phone/SMS/quiz conversion event tracking.
+ *   3. Google Ads (AW-17046742942) + Google Analytics 4 (G-8DGC4CBGWN) lead/phone/SMS/quiz tracking.
  *
  * NO modals, NO mailto buttons, NO preventDefault on submit — pure native form submission.
  */
@@ -12,13 +12,13 @@
 (function() {
     const TRACKING = {
         adsId: 'AW-17046742942',
-        ga4Id: window.LIONSTONE_GA4_ID || '',
+        ga4Id: window.LIONSTONE_GA4_ID || 'G-8DGC4CBGWN',
         adsLeadLabel: window.LIONSTONE_ADS_LEAD_LABEL || '',
         adsCallLabel: window.LIONSTONE_ADS_CALL_LABEL || ''
     };
 
-    if (TRACKING.ga4Id && typeof window.gtag === 'function') {
-        window.gtag('config', TRACKING.ga4Id);
+    if (window.LIONSTONE_GA4_ID && window.LIONSTONE_GA4_ID !== 'G-8DGC4CBGWN' && typeof window.gtag === 'function') {
+        window.gtag('config', window.LIONSTONE_GA4_ID);
     }
 
     function trackEvent(eventName, params) {
