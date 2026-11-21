@@ -1,4 +1,48 @@
+# robots.txt for LionStone Concrete Coating LLC (https://lionstonefloors.com)
+# See https://lionstonefloors.com/llms.txt for AI assistant & search indexing metadata
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /photo-manager.html
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /photo-manager.html
+
+User-agent: GPTBot
+Allow: /
+Disallow: /photo-manager.html
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /photo-manager.html
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /photo-manager.html
+
+User-agent: Claude-User
+Allow: /
+Disallow: /photo-manager.html
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /photo-manager.html
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /photo-manager.html
+
+User-agent: Googlebot
+Allow: /
+Disallow: /photo-manager.html
+
+User-agent: Bingbot
+Allow: /
+Disallow: /photo-manager.html
+
 User-agent: *
 Allow: /
+Disallow: /photo-manager.html
 
 Sitemap: https://lionstonefloors.com/sitemap.xml
